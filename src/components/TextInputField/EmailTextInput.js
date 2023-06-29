@@ -1,7 +1,7 @@
 
 
 import { Ionicons } from '@expo/vector-icons';
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { TextInput, Tooltip } from 'react-native-paper';
 
@@ -29,7 +29,8 @@ const EmailTextInput = (
       maxLength,
       ...res
     }) => {
-      const [isError, setIsError] = React.useState(false)
+      const [isError, setIsError] = useState(false)
+      const [values, setValue] = useState('')
 
       const isRequired = () =>{
         if(!value && required && !error && !errorMessage){
@@ -40,6 +41,7 @@ const EmailTextInput = (
       }
 
       const handleChange = (value) =>{
+        setValue(value)
         onChangeText(value)
         if(value.length !== 0){
           setIsError(false)
@@ -56,10 +58,11 @@ const EmailTextInput = (
                   multiline={false}
                   outlineStyle={{height:50,borderEndWidth:10}}
                   textContentType='name'
+                  inputMode={'email'}
                   mode={mode}
                   maxLength={maxLength}
                   onFocus={onFocus}
-                  value={value}
+                  value={value || values}
                   onBlur={required ? isRequired : onBlur}
                   placeholder={placeholder}
                   error={error || isError}

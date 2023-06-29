@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Platform } from 'react-native';
 import { Checkbox } from "react-native-paper";
 
 
 
-const CheckBoxInput = () =>{
-const [status, setStatus] = useState('unChecked')
+const CheckBoxInput = (
+    {
+        label,
+        mode,
+        color,
+        status,
+        onPress,
+        labelColor
+    }
+) =>{
+const [statusValue, setStatusValue] = React.useState('unChecked')
 
+const handleChange = () =>{
+    setStatusValue(statusValue === 'checked' ? 'unchecked' : 'checked')
+}
     return(
-        <Checkbox.Item mode="android" label="name" color="red" status="indeterminate" onPress={e=>console.log(e)}  />
+        <Checkbox.Item position={'trailing'} mode={Platform.OS} labelStyle={{color:labelColor || 'black'}} status={statusValue} label="name" color={color} onPress={handleChange}  />
     )
 }
 

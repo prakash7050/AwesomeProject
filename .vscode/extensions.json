@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "redhat.vscode-community-server-connector",
+        "vscjava.vscode-java-pack",
+        "visualstudioexptteam.vscodeintellicode",
+        "esbenp.prettier-vscode",
+        "gruntfuggly.todo-tree",
+        "shardulm94.trailing-spaces"
+    ]
+}

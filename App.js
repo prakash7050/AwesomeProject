@@ -15,19 +15,18 @@ export default function App() {
         <ImageViewer placeholderImageSource={PlaceholderImage} />
       </View> */}
       <Provider>
-      <ScrollView style={styles.footerContainer}>
+      <ScrollView>
         <Home />
       </ScrollView>
       </Provider>
       
-      <StatusBar style="auto" />
+      <StatusBar style="inverted" hideTransitionAnimation="slide" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width : '100%',
     height: '100%'
     // backgroundColor: '#25292e',
