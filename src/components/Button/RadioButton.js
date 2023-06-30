@@ -30,7 +30,7 @@ const RadioButtonInput = ({
          <RadioButton.Group onValueChange={value => handleChange(value)} value={value || values}>
             <View style={{flexDirection:'row'}}>
                 {itemData && itemData.map((item,i)=>
-                    (<RadioButton.Item style={{flex:i+1}} labelStyle={labelStyle} color={color} label={item?.label} value={item?.value} />
+                    (<RadioButton.Item key={i} style={{flex:i+1}} labelStyle={labelStyle} color={color} label={item?.label} value={item?.value} />
                 ))}
             </View>
            

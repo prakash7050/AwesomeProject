@@ -48,7 +48,7 @@ const handleChange = (itemValue) =>{
                 onBlur={()=>handleClick('onBlur')}
                 placeholder={placeholder}
                 selectedValue={value || selectedValue}
-                style={{...style, height: 50, width: '100%',borderEndWidth:10,borderColor:borderColor }}
+                style={{height: 50, width: '100%',borderEndWidth:10,borderColor:borderColor,borderRadius:5,...style }}
                 onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
                 numberOfLines={numberOfLines}
                 {...res}

@@ -3,6 +3,9 @@ import { View } from "react-native";
 import LoadingButton from "../components/Button/LoadingButton";
 import RadioButtonInput from "../components/Button/RadioButton";
 import CheckBoxInput from "../components/CheckBox/CheckBoxInput";
+import DateInput from "../components/DateTime/DateInput";
+import DateTimeInput from "../components/DateTime/DateTimeInput";
+import TimeInput from "../components/DateTime/TimeInput";
 import DropDownField from "../components/SelectField/DropDownField";
 import MultiSelectField from "../components/SelectField/MultiSelectField";
 import SingleSelectField from "../components/SelectField/SingleSelectField";
@@ -25,6 +28,7 @@ const Home = () =>{
     const [schoolNameError, setSchoolNameError] = useState('')
     const [summary, setSummary] = useState('')
     const [summaryError, setSummaryError] = useState('')
+    const [isLoading,setIsLoading] = useState(false)
 
     const handleChange = (name,value) =>{
         console.log(name,value)
@@ -51,6 +55,13 @@ const Home = () =>{
         }
     ]
 
+    const buttonHandler = () =>{
+        setIsLoading(true)
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000);
+    }
+
     return (
         <View style={{margin:'10%'}} >
             <SingleLineText placeholder={"single line text input with icon and error"} iconName={'home'} iconColor={'green'} required={true} maxLength={10} onBlur={(e)=>console.log(e)} onChangeText={(value)=>handleChange('name',value)} label='Sngle Line Input' value={name} error={nameError} errorMessage={nameError} />
@@ -73,7 +84,14 @@ const Home = () =>{
             <CheckBoxInput />
             </View>
             <RadioButtonInput itemData={defaultValues} onValueChange={(value)=>console.log(value)} />
-            <LoadingButton />
+            <LoadingButton isLoading={isLoading} onPress={()=>buttonHandler()} />
+            <View style={{paddingBottom:20}}/>
+            {/* <ImagePicker /> */}
+            <DateInput onChange={date=>console.log(date)} />
+            <View style={{paddingBottom:20}}/>
+            <DateTimeInput />
+            <View style={{paddingBottom:20}}/>
+            <TimeInput />
         </View>
     )
 }
