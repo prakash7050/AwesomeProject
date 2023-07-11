@@ -36,8 +36,8 @@ const LoadingButton = ({
             title={title || 'Button'}
             titleFontSize={titleFontSize || 16}
             titleColor={titleColor || 'rgb(255,255,255)'}
-            backgroundColor={backgroundColor || '"rgb(29,18,121)'}
-            borderRadius={borderRadius || 4}
+            backgroundColor={backgroundColor || 'green'}
+            borderRadius={borderRadius || 10}
             onPress={onPress}
             {...res}
         />

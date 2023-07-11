@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { ScrollView, StyleSheet, View, useColorScheme } from "react-native";
 import { Provider } from "react-native-paper";
 import Home from "./src/pages/Home";
 
@@ -9,18 +10,20 @@ import Home from "./src/pages/Home";
 // const PlaceholderImage = require("./assets/images/background-image.png");
 
 export default function App() {
+  const isDarkMode = useColorScheme() === 'dark'
+  const [isHidden, setIsHidden] = useState(false)
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container,backgroundColor:isDarkMode ? 'white' : 'white'}}>
       {/* <View style={styles.imageContainer}>
         <ImageViewer placeholderImageSource={PlaceholderImage} />
       </View> */}
       <Provider>
-      <ScrollView>
+      <ScrollView onScroll={()=>setIsHidden(true)}>
         <Home />
       </ScrollView>
       </Provider>
       
-      <StatusBar style="inverted" hideTransitionAnimation="slide" />
+      <StatusBar style={!isDarkMode ? 'light' : 'dark'} hideTransitionAnimation="fade" networkActivityIndicatorVisible={true} />
     </View>
   );
 }

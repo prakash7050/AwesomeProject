@@ -23,7 +23,7 @@ const DropDownField = ({
 }) => {
   const [selectedValue, setSelectedValue] = useState("js");
   const [isError, setIsError] = useState(false)
-  const [borderColor, setBorderColor] = useState('')
+  const [borderColor, setBorderColor] = useState('black')
 
   const handleClick = (name) => {
     if(name === 'onBlur'){
@@ -40,15 +40,15 @@ const handleChange = (itemValue) =>{
 
   return (
     <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
-         {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10}}>{required ? `${label}*` : label}</Text></View>}
-        <View style={{flex:1,flexDirection:'row'}}>
+         {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label}</Text></View>}
+        <View style={{flex:1,flexDirection:'row',borderEndWidth:10,height:50,borderRadius:5,borderWidth:1}}>
             <Picker
                 mode={mode || 'dropdown'}
                 onFocus={()=>handleClick('onFocus')}
                 onBlur={()=>handleClick('onBlur')}
                 placeholder={placeholder}
                 selectedValue={value || selectedValue}
-                style={{height: 50, width: '100%',borderEndWidth:10,borderColor:borderColor,borderRadius:5,...style }}
+                style={{height: 50, flex:1,borderEndWidth:10,borderColor:borderColor,borderRadius:5,...style }}
                 onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
                 numberOfLines={numberOfLines}
                 {...res}

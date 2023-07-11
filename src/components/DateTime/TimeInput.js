@@ -40,8 +40,8 @@ export default function TimeInput({
     );
 
     return (
-        <TouchableOpacity onPress={()=> setVisible(true)} style={{minHeight:50,borderRadius:5,backgroundColor:'white',borderEndWidth:10}}>
-            <View style={{flex:1,flexDirection:'row'}}>
+        <TouchableOpacity onPress={()=> setVisible(true)} >
+            <View style={{flex:1,flexDirection:'row',borderColor:'black',borderWidth:1,borderRadius:5,borderEndWidth:10}}>
                 <Text style={{flex:1,textAlign:'left',minWidth:'50%',margin:20,marginLeft:20}}>Time  {time ? moment(`${time.hours}:${time.minutes}`,'HH:mm').format('hh:mm:ss a') : moment().format('hh:mm:ss a')}</Text>
                 <Ionicons size={25} style={{flex:2,textAlign:'right',margin:10,marginRight:10}} color={'#b37982'} name='time' />
             </View>

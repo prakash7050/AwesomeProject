@@ -13,6 +13,7 @@ export default function DateInput({
     mode,
     outlineStyle,
     style,
+    theme,
     ...res
 }) {
   const [inputDate, setInputDate] = React.useState(undefined)
@@ -27,7 +28,7 @@ export default function DateInput({
     <DatePickerInput
         locale="en-GB"
         label={required ? `${label}*` : label}
-        withModal={isModal || false}
+        withModal={isModal || true}
         value={value || inputDate}
         onChange={(d) => handleChange(d)}
         inputMode="end"
@@ -35,6 +36,7 @@ export default function DateInput({
         withDateFormatInLabel={false}
         dataDetectorTypes={'calendarEvent'}
         hasError={error}
+        theme={{colors:'primary',...theme}}
         placeholder={placeholder || 'Choose Date'}
         outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
         style={{backgroundColor:'white',textAlign:'left',...style}}

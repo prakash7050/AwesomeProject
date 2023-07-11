@@ -8,7 +8,7 @@ import { TextInput } from 'react-native-paper';
 
 const MultiLineText = (
     {
-        label='label',
+        label,
         mode='outlined',
         disabled=false,
         placeholder='',
@@ -33,6 +33,8 @@ const MultiLineText = (
         onBlur,
         iconName,
         iconColor,
+        theme,
+        outlineStyle,
         ...res
     }) => {
       const [isError, setIsError] = React.useState(false)
@@ -56,11 +58,12 @@ const MultiLineText = (
     <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
       <View style={{flex:1,flexDirection:'row'}}>
           <TextInput
-            style={{...style,backgroundColor:'white',flex:1,textAlign:'left'}}
+            theme={{colors:'primary',...theme}}
+            style={{backgroundColor:'white',flex:1,textAlign:'left',...style}}
             label={required ? `${label}*` : label}
             disabled={disabled}
             multiline={true}
-            outlineStyle={{minHeight:50,borderEndWidth:10}}
+            outlineStyle={{minHeight:50,borderEndWidth:10,...outlineStyle}}
             numberOfLines={numberOfLines}
             mode={mode}
             inputMode={'email'}

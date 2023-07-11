@@ -1,6 +1,7 @@
 import moment from 'moment';
-import React from "react";
-import { DatePickerInput } from 'react-native-paper-dates';
+import React, { useCallback, useState } from "react";
+import { View } from 'react-native';
+import { DatePickerInput, TimePickerModal } from 'react-native-paper-dates';
 
 export default function DateInput({
     errorColor,
@@ -16,17 +17,43 @@ export default function DateInput({
     style,
     ...res
 }) {
-  const [inputDate, setInputDate] = React.useState(undefined)
+    const [inputDate, setInputDate] = useState(undefined)
+    const [visible, setVisible] = useState(false)
+    const [time, setTime] = useState('')
+
+    const onDismiss = useCallback(() => {
+      setVisible(false)
+    }, [setVisible])
+  
+    const onConfirm = useCallback(
+      ({ hours, minutes }) => {
+        setVisible(false);
+        if((`${hours}`).length === 1){
+            hours = `0${hours}`
+        }
+        if((`${minutes}`).length === 1){
+            minutes = `0${minutes}`
+        }
+        setTime({ hours, minutes })
+        const dateTime = moment(`${inputDate} ${hours}:${minutes}`,'DD-MM-YYYY HH:mm').format('DD/MM/YYYY hh:mm:ss a')
+        setInputDate(dateTime)
+        console.log({ hours, minutes },'<<<<<',(`${hours}`).length);
+      },
+      [setVisible]
+    );
 
   const handleChange = (d) =>{
-    console.log(`<<<ddd<<<<`,moment(d).format('DD-MM-YYYY hh:mm:ss a'))
+    console.log(`<<<ddd<<<<`,moment(d).format('DD/MM/YYYY'))
+    const date = moment(d).format('DD-MM-YYYY')
     // const dateTime = moment(d).format('DD-MM-YYYY hh:mm:ss a')
-    // setInputDate(dateTime)
+    setInputDate(date)
+    setVisible(true)
     // onChange(dateTime)
   }
 
   return (
-    <DatePickerInput
+    <View>
+      <DatePickerInput
         locale="en-GB"
         label={required ? `${label}*` : label}
         withModal={isModal || true}
@@ -41,6 +68,15 @@ export default function DateInput({
         outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
         style={{backgroundColor:'white',textAlign:'left',...style}}
         {...res}
-    />
+      />
+      <TimePickerModal
+          visible={visible}
+          onDismiss={onDismiss}
+          onConfirm={onConfirm}
+          hours={12}
+          minutes={14}
+      />
+    </View>
+    
   );
 }

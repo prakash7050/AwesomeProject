@@ -20,7 +20,7 @@ const handleChange = () =>{
     setStatusValue(statusValue === 'checked' ? 'unchecked' : 'checked')
 }
     return(
-        <Checkbox.Item position={'trailing'} mode={Platform.OS} labelStyle={{color:labelColor || 'black'}} status={statusValue} label="name" color={color} onPress={handleChange}  />
+        <Checkbox.Item uncheckedColor='black' position={'leading'} mode={Platform.OS} style={{justifyContent:'flex-start'}} labelStyle={{color:labelColor || 'black'}} status={statusValue} label={label} color={color || 'green'} onPress={handleChange}  />
     )
 }
 

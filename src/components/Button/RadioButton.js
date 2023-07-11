@@ -17,7 +17,8 @@ const RadioButtonInput = ({
     value,
     itemData,
     color,
-    labelStyle
+    labelStyle,
+    theme
 }) => {
     const [values, setValue] = React.useState('first');
 
@@ -30,7 +31,7 @@ const RadioButtonInput = ({
          <RadioButton.Group onValueChange={value => handleChange(value)} value={value || values}>
             <View style={{flexDirection:'row'}}>
                 {itemData && itemData.map((item,i)=>
-                    (<RadioButton.Item key={i} style={{flex:i+1}} labelStyle={labelStyle} color={color} label={item?.label} value={item?.value} />
+                    (<RadioButton.Item key={i} uncheckedColor='black' style={{flex:i+1}} theme={{colors:'primary',...theme}} labelStyle={labelStyle} color={color || 'green'} label={item?.label} value={item?.value} />
                 ))}
             </View>
            

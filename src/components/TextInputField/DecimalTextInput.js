@@ -7,7 +7,7 @@ import { TextInput, Tooltip } from 'react-native-paper';
 
 const DecimalTextInput = (
     {
-      label='label',
+      label,
       mode='outlined',
       disabled=false,
       placeholder='',
@@ -27,10 +27,13 @@ const DecimalTextInput = (
       onBlur,
       required=false,
       maxLength,
+      theme,
+      outlineStyle,
       ...res
     }) => {
       const [isError, setIsError] = React.useState(false)
       const [fieldValue, setFieldValue] = React.useState('')
+      const [isInvailid, setIsInvailid] = React.useState(false)
 
       const isRequired = () =>{
         if(!value && required && !error && !errorMessage){
@@ -41,10 +44,17 @@ const DecimalTextInput = (
       }
 
       const handleChange = (value) =>{
-        onChangeText(isNaN(value) ? '' :value)
-        setFieldValue(isNaN(value) ? '' :value)
-        if(value.length !== 0){
+        if(isNaN(value)){
+          setIsInvailid(true)
+          setIsError(true)
+        }else{
+          setIsInvailid(false)
           setIsError(false)
+          onChangeText(isNaN(value) ? '' :value)
+          setFieldValue(isNaN(value) ? '' :value)
+          if(value.length !== 0){
+            setIsError(false)
+          }
         }
       }
 
@@ -52,7 +62,8 @@ const DecimalTextInput = (
     <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
-                  style={{...style,backgroundColor:'white',flex:1,textAlign:'left'}}
+                  theme={{colors:'primary',...theme}}
+                  style={{backgroundColor:'white',flex:1,textAlign:'left',...style}}
                   label={required ? `${label}*` : label}
                   disabled={disabled}
                   multiline={false}
@@ -62,7 +73,7 @@ const DecimalTextInput = (
                   maxLength={maxLength}
                   onFocus={onFocus}
                   value={value ? isNaN(value) ? '' : value : fieldValue}
-                  outlineStyle={{height:50,borderEndWidth:10}}
+                  outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
                   onBlur={required ? isRequired : onBlur}
                   placeholder={placeholder}
                   error={error || isError}
@@ -84,7 +95,7 @@ const DecimalTextInput = (
               </View>
               }
             </View>
-        {error &&<Text style={{color:errorColor || 'red',marginLeft:5}}>{errorMessage}</Text>}
+            {(error || isInvailid) &&<Text style={{color:errorColor || 'red',marginLeft:5}}>{isInvailid ? 'Enter a valid number' : errorMessage}</Text>}
     </View>
   );
 };

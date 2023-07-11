@@ -7,7 +7,7 @@ import { TextInput, Tooltip } from 'react-native-paper';
 
 const EmailTextInput = (
     {
-      label='label',
+      label,
       mode='outlined',
       disabled=false,
       placeholder='',
@@ -27,13 +27,16 @@ const EmailTextInput = (
       onBlur,
       required=false,
       maxLength,
+      theme,
+      outlineStyle,
       ...res
     }) => {
       const [isError, setIsError] = useState(false)
       const [values, setValue] = useState('')
 
       const isRequired = () =>{
-        if(!value && required && !error && !errorMessage){
+        console.log(!value && required && !error && !errorMessage,'<<<<<',value , required , !error ,errorMessage)
+        if(!values && required && !error && !errorMessage){
           setIsError(true)
         }else{
           onBlur()
@@ -52,11 +55,12 @@ const EmailTextInput = (
     <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
-                  style={{...style,backgroundColor:'white',flex:1,textAlign:'left'}}
+                  theme={{colors:'primary',...theme}}
+                  style={{backgroundColor:'white',flex:1,textAlign:'left',...style}}
                   label={required ? `${label}*` : label}
                   disabled={disabled}
                   multiline={false}
-                  outlineStyle={{height:50,borderEndWidth:10}}
+                  outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
                   textContentType='name'
                   inputMode={'email'}
                   mode={mode}

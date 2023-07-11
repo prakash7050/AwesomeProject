@@ -65,7 +65,7 @@ const SingleSelectField = ({
   };
 
     return (
-      <View style={{ flex: 1,paddingTop:30 }}>
+      <View style={{ flex: 1,paddingTop:30,paddingBottom:30,borderColor:'black' }}>
         <MultiSelect
           single
           hideTags={hideTags || true}
@@ -87,9 +87,9 @@ const SingleSelectField = ({
           textColor={textColor}
           styleTextDropdownSelected={{marginLeft:20,...styleTextDropdownSelected}}
           styleSelectorContainer={{margin:10,...styleSelectorContainer}}
-          styleTextDropdown={{marginLeft:20,color:'#CCC',...styleTextDropdown}}
-          styleDropdownMenuSubsection={{height:50,borderEndWidth:10,borderRadius:5,...styleDropdownMenuSubsection}}
-          searchInputStyle={{ color: '#CCC',height:50,...searchInputStyle}}
+          styleTextDropdown={{marginLeft:20,...styleTextDropdown}}
+          styleDropdownMenuSubsection={{height:50,borderEndWidth:10,borderRadius:5,borderColor:"black",...styleDropdownMenuSubsection}}
+          searchInputStyle={{height:50,...searchInputStyle}}
         />
         <View>
           {multiSelect?.getSelectedItemsExt(selectedItems)}
