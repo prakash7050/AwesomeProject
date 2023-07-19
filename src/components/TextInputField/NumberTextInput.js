@@ -59,7 +59,7 @@ const NumberTextInput = (
       }
 
   return (
-    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
+    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column',width:style?.width}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
                   theme={{colors:'primary',...theme}}

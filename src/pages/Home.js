@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { isMobile } from "react-device-detect";
+import { Button, Platform, StyleSheet, View } from "react-native";
+import AddressInput from "../components/Address/AddressInput";
 import LoadingButton from "../components/Button/LoadingButton";
 import RadioButtonInput from "../components/Button/RadioButton";
 import CheckBoxInput from "../components/CheckBox/CheckBoxInput";
 import DateInput from "../components/DateTime/DateInput";
 import TimeInput from "../components/DateTime/TimeInput";
+import Graph from "../components/Graph/Graph";
 import ImagePicker from "../components/ImageInput/ImagePicker";
+import Name from "../components/Name/NameInput";
 import TableList from "../components/Reports/TableList";
 import DropDownField from "../components/SelectField/DropDownField";
 import MultiSelectField from "../components/SelectField/MultiSelectField";
 import SingleSelectField from "../components/SelectField/SingleSelectField";
+import Sign from "../components/Signature/SignatureInput";
 import DecimalTextInput from "../components/TextInputField/DecimalTextInput";
 import EmailTextInput from "../components/TextInputField/EmailTextInput";
 import MobileTextInput from "../components/TextInputField/MobileTextInput";
@@ -47,7 +52,7 @@ const Home = () =>{
             setSummary(value)
         }
     }
-    console.log('<<<<<<<<<<dddd<<<')
+    
     const defaultValues = [
         {
             label:'First Item',
@@ -65,11 +70,12 @@ const Home = () =>{
             setIsLoading(false)
         }, 2000);
     }
+    console.log(Platform.OS,isMobile);
 
     return (
         <View style={{margin:'10%',paddingTop:30}} >
             <Button title="View Input Field" onPress={()=>setComponentName('input')}/>
-            {componentName === 'input' && 
+            {componentName === 'input' &&
             <View>
                 <SingleLineText placeholder={"single line text input with icon and error"} iconName={'home'} iconColor={'green'} required={true} maxLength={10} onBlur={(e)=>console.log(e)} onChangeText={(value)=>handleChange('name',value)} label='Sngle Line Input' value={name} error={nameError} errorMessage={nameError} />
             <SingleLineText placeholder="single line text"  onChangeText={(value)=>handleChange('schoolName',value)} label='single line text' value={schoolName} error={schoolNameError} errorMessage={schoolNameError} />
@@ -93,7 +99,7 @@ const Home = () =>{
             <RadioButtonInput itemData={defaultValues} onValueChange={(value)=>console.log(value)} />
             <LoadingButton isLoading={isLoading} onPress={()=>buttonHandler()} />
             <View style={{paddingBottom:20}}/>
-            <ImagePicker removeFile={()=>setImageUrl('')} label={'Select Image'} fileType={'image'} setFile={(file)=> setImageUrl(file?.uri)} />
+            <ImagePicker isShowImage={true} removeFile={()=>setImageUrl('')} label={'Select Image'} fileType={'image'} setFile={(file)=> setImageUrl(file?.uri)} />
            
             <View style={{paddingBottom:20}}/>
             <ImagePicker label={'Select Audio'} fileType={'audio'} setFile={(file)=>console.log(file)}/>
@@ -110,10 +116,15 @@ const Home = () =>{
             </View>}
             <View style={{paddingBottom:20}}/>
             <Button title="View Report" onPress={()=>setComponentName('reports')}/>
-            {componentName === 'reports' && 
+            {componentName === 'reports' &&
             <View>
                 <TableList />
             </View>}
+            <Name suffixNameLabel={'Mr./Ms.'} firstNameLabel={'First Name'} lastNameLabel={'Last Name'} middleNameLabel={'Middle Name'} onChange={(value)=>console.log('Name',value)} />
+            <AddressInput onChange={(value)=>console.log(value)} />
+            <Sign />
+            <Graph />
+            {/* <Map /> */}
         </View>
     )
 }

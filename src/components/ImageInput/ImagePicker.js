@@ -14,7 +14,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import { Image } from 'expo-image';
 import SingleLineText from '../TextInputField/SinglLineTextInput';
 
-export default function ImagePicker({fileType,label,setFile,removeFile}) {
+export default function ImagePicker({fileType,label,setFile,removeFile,isShowImage=false}) {
   const [singleFile, setSingleFile] = useState('');
 
   const checkPermissions = async () => {
@@ -49,7 +49,6 @@ export default function ImagePicker({fileType,label,setFile,removeFile}) {
         return true;
       }
     } catch (err) {
-        console.log(`<<<err<<<`,err)
       console.warn(err);
       return false;
     }
@@ -157,7 +156,7 @@ export default function ImagePicker({fileType,label,setFile,removeFile}) {
           {'\n'} */}
         </Text>
       )}
-      {singleFile?.uri && <View style={{width:100,height:100,marginLeft:10}}>
+      {isShowImage && singleFile?.uri && <View style={{width:100,height:100,marginLeft:10}}>
             <Image
                 style={styles.image}
                 source={{uri:singleFile?.uri}}

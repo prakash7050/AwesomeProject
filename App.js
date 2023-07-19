@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ScrollView, StyleSheet, View, useColorScheme } from "react-native";
+import 'react-native-gesture-handler';
 import { Provider } from "react-native-paper";
+import Toast from 'react-native-toast-message';
 import Home from "./src/pages/Home";
-
 // import Button from './components/Button';
 // import ImageViewer from './components/ImageViewer';
 
@@ -12,17 +13,21 @@ import Home from "./src/pages/Home";
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark'
   const [isHidden, setIsHidden] = useState(false)
+  const toastRef = useRef(null);
+
   return (
     <View style={{...styles.container,backgroundColor:isDarkMode ? 'white' : 'white'}}>
+      
       {/* <View style={styles.imageContainer}>
         <ImageViewer placeholderImageSource={PlaceholderImage} />
       </View> */}
       <Provider>
+      
       <ScrollView onScroll={()=>setIsHidden(true)}>
         <Home />
       </ScrollView>
       </Provider>
-      
+      <Toast ref={toastRef} />
       <StatusBar style={!isDarkMode ? 'light' : 'dark'} hideTransitionAnimation="fade" networkActivityIndicatorVisible={true} />
     </View>
   );

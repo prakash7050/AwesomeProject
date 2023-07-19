@@ -41,7 +41,7 @@ const handleChange = (itemValue) =>{
   return (
     <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
          {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label}</Text></View>}
-        <View style={{flex:1,flexDirection:'row',borderEndWidth:10,height:50,borderRadius:5,borderWidth:1}}>
+        <View style={{flex:1,flexDirection:'row',height:50,borderRadius:5,borderWidth:1}}>
             <Picker
                 mode={mode || 'dropdown'}
                 onFocus={()=>handleClick('onFocus')}
