@@ -3,54 +3,59 @@
 
 // import React in our code
 import React from 'react';
-import { View } from 'react-native';
 
 // import all the components we are going to use
 import {
-    Dimensions,
-    StyleSheet,
-    Text
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 
 //import React Native chart Kit for different kind of Chart
 import {
-    ContributionGraph
+  ContributionGraph
 } from 'react-native-chart-kit';
+import { isMobileView } from '../../Constant';
 
-const MyContributionGraph = () => {
+const MyContributionGraph = ({data,props}) => {
   return (
-    <View>
-      <Text style={styles.header}>Contribution Graph</Text>
-      <ContributionGraph
+    <ContributionGraph
         values={[
           {date: '2019-01-02', count: 1},
-          {date: '2019-01-03', count: 2},
-          {date: '2019-01-04', count: 3},
-          {date: '2019-01-05', count: 4},
-          {date: '2019-01-06', count: 5},
-          {date: '2019-01-30', count: 2},
-          {date: '2019-01-31', count: 3},
-          {date: '2019-03-01', count: 2},
-          {date: '2019-04-02', count: 4},
-          {date: '2019-03-05', count: 2},
-          {date: '2019-02-30', count: 4},
+          {date: '2019-02-03', count: 2},
+          {date: '2019-03-04', count: 3},
+          {date: '2019-04-05', count: 4},
+          {date: '2019-05-06', count: 5},
+          {date: '2019-06-30', count: 6},
+          {date: '2019-07-31', count: 7},
+          {date: '2019-08-01', count: 8},
+          {date: '2019-09-02', count: 9},
+          {date: '2019-10-05', count: 10},
+          {date: '2019-11-30', count: 11},
+          {date: '2019-12-30', count: 12},
         ]}
-        endDate={new Date('2019-04-01')}
-        numDays={105}
-        width={Dimensions.get('window').width - Dimensions.get('window').width/6}
-        height={220}
+        endDate={new Date('2019-11-30')}
+        numDays={366}
+        yLabelsOffset={1}
+        xLabelsOffset={5}
+        width={isMobileView ? Dimensions.get('window').width*2.8 : Dimensions.get('window').width}
+        height={isMobileView ? Dimensions.get('window').width-200 : Dimensions.get('window').height/4}
         chartConfig={{
-          backgroundColor: '#1cc910',
+          backgroundColor: '#eff3ff',
           backgroundGradientFrom: '#eff3ff',
-          backgroundGradientTo: '#efefef',
-          decimalPlaces: 2,
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          backgroundGradientTo: '#d6d5bf',
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 255) => `rgba(1, 48, 28, ${opacity})`,
           style: {
-            borderRadius: 16,
+            borderRadius: 10,
+            margin:2
           },
         }}
+        style={{
+          borderRadius: 10,
+          margin:2
+        }}
       />
-    </View>
+    
   );
 };
 

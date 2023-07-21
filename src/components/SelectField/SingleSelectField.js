@@ -60,12 +60,12 @@ const SingleSelectField = ({
   
   const onSelectedItemChange = selectedItem => {
     console.log(selectedItem)
-    onSelectedItemsChange(selectedItems)
+    onSelectedItemsChange(selectedItem)
     setSelectedItems(selectedItem)
   };
 
     return (
-      <View style={{ flex: 1,paddingTop:30,paddingBottom:30,borderColor:'black' }}>
+      <View style={{ paddingBottom:20 }}>
         <MultiSelect
           single
           hideTags={hideTags || true}
@@ -90,6 +90,7 @@ const SingleSelectField = ({
           styleTextDropdown={{marginLeft:20,...styleTextDropdown}}
           styleDropdownMenuSubsection={{height:50,borderEndWidth:10,borderRadius:5,borderColor:"black",...styleDropdownMenuSubsection}}
           searchInputStyle={{height:50,...searchInputStyle}}
+          
         />
         <View>
           {multiSelect?.getSelectedItemsExt(selectedItems)}

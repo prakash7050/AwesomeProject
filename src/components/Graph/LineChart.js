@@ -3,48 +3,52 @@
 
 // import React in our code
 import React from 'react';
-import { View } from 'react-native';
 
 // import all the components we are going to use
 import {
-    Dimensions,
-    StyleSheet,
-    Text
+  Dimensions,
+  ScrollView,
+  StyleSheet
 } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import { isMobileView } from '../../Constant';
 
-const MyLineChart = () => {
+const MyLineChart = ({data,props}) => {
   return (
-    <View>
-      <Text style={styles.header}>Line Chart</Text>
+    <ScrollView horizontal >
       <LineChart
         data={{
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          labels: data?.labels,
           datasets: [
             {
-              data: [20, 45, 28, 80, 99, 43],
+              data: data?.data,
               strokeWidth: 2,
             },
           ],
         }}
-        width={Dimensions.get('window').width - Dimensions.get('window').width/6}
-        height={220}
+        yLabelsOffset={1}
+        xLabelsOffset={5}
+        width={isMobileView ? Dimensions.get('window').width*2.8 : Dimensions.get('window').width}
+        height={isMobileView ? Dimensions.get('window').width-200 : Dimensions.get('window').height/4}
         chartConfig={{
-          backgroundColor: '#1cc910',
+          backgroundColor: '#eff3ff',
           backgroundGradientFrom: '#eff3ff',
-          backgroundGradientTo: '#efefef',
-          decimalPlaces: 2,
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          backgroundGradientTo: '#d6d5bf',
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 255) => `rgba(1, 48, 28, ${opacity})`,
           style: {
-            borderRadius: 16,
+            borderRadius: 10,
+            margin:2
           },
         }}
         style={{
-          marginVertical: 8,
-          borderRadius: 16,
+          borderRadius: 10,
+          margin:2
         }}
+        {...props}
       />
-    </View>
+    </ScrollView>
+    
   );
 };
 

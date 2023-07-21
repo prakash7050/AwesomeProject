@@ -60,12 +60,12 @@ const MultiSelectField = ({
   
   const onSelectedItemChange = selectedItem => {
     console.log(selectedItem)
-    onSelectedItemsChange(selectedItems)
+    onSelectedItemsChange(selectedItem)
     setSelectedItems(selectedItem)
   };
 
     return (
-      <View style={{ flex: 1,paddingTop:30 }}>
+      <View style={{paddingBottom:20 }}>
         <MultiSelect
           hideTags={hideTags || true}
           items={items || defaultValues}
@@ -85,14 +85,12 @@ const MultiSelectField = ({
           displayKey={displayKey}
           textColor={textColor}
           styleTextDropdownSelected={{marginLeft:20,...styleTextDropdownSelected}}
-          styleSelectorContainer={{margin:10,...styleSelectorContainer}}
+          styleSelectorContainer={{marginLeft:10,...styleSelectorContainer}}
           styleTextDropdown={{marginLeft:20,...styleTextDropdown}}
           styleDropdownMenuSubsection={{height:50,borderEndWidth:10,borderRadius:5,borderColor:"black",...styleDropdownMenuSubsection}}
           searchInputStyle={{ height:50,...searchInputStyle}}
         />
-        <View>
-          {multiSelect?.getSelectedItemsExt(selectedItems)}
-        </View>
+        {multiSelect?.getSelectedItemsExt(selectedItems)}
       </View>
     );
   }

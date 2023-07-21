@@ -64,6 +64,33 @@ const Home = () =>{
         }
     ]
 
+    const graphData = [
+        {
+            month : 'January',
+            value : 200
+        },
+        {
+            month : 'February',
+            value : 300
+        },
+        {
+            month : 'March',
+            value : 400
+        },
+        {
+            month : 'April',
+            value : 500
+        },
+        {
+            month : 'May',
+            value : 600
+        },
+        {
+            month : 'June',
+            value : 700
+        }
+    ]
+
     const buttonHandler = () =>{
         setIsLoading(true)
         setTimeout(() => {
@@ -92,9 +119,9 @@ const Home = () =>{
             <DropDownField style={{flex:1}} label={'Choose Langauge'} itemData={[{label:'Java',value:'java'},{label:'JavaScript',value:'js'}]} onValueChange={(value)=>console.log(value)} />
 
             <View style={{flexDirection:'row'}}>
-            <CheckBoxInput />
-            <CheckBoxInput />
-            <CheckBoxInput />
+            <CheckBoxInput label={'check 1'} />
+            <CheckBoxInput  label={'check 2'}/>
+            <CheckBoxInput  label={'check 3'}/>
             </View>
             <RadioButtonInput itemData={defaultValues} onValueChange={(value)=>console.log(value)} />
             <LoadingButton isLoading={isLoading} onPress={()=>buttonHandler()} />
@@ -123,8 +150,9 @@ const Home = () =>{
             <Name suffixNameLabel={'Mr./Ms.'} firstNameLabel={'First Name'} lastNameLabel={'Last Name'} middleNameLabel={'Middle Name'} onChange={(value)=>console.log('Name',value)} />
             <AddressInput onChange={(value)=>console.log(value)} />
             <Sign />
-            <Graph />
+            <Graph graphData={graphData} yLabelKey={'value'} xLabelKey={'month'} />
             {/* <Map /> */}
+            
         </View>
     )
 }

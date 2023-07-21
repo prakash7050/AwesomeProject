@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { ScrollView, StyleSheet, View, useColorScheme } from "react-native";
 import 'react-native-gesture-handler';
 import { Provider } from "react-native-paper";
@@ -15,21 +15,32 @@ export default function App() {
   const [isHidden, setIsHidden] = useState(false)
   const toastRef = useRef(null);
 
+  const InfoMessage = forwardRef((props,ref) => {
+    return(
+        <Toast ref={ref} />
+    )
+  });
+
   return (
+    <>
     <View style={{...styles.container,backgroundColor:isDarkMode ? 'white' : 'white'}}>
       
       {/* <View style={styles.imageContainer}>
         <ImageViewer placeholderImageSource={PlaceholderImage} />
       </View> */}
+      
       <Provider>
       
       <ScrollView onScroll={()=>setIsHidden(true)}>
+      
         <Home />
       </ScrollView>
       </Provider>
-      <Toast ref={toastRef} />
-      <StatusBar style={!isDarkMode ? 'light' : 'dark'} hideTransitionAnimation="fade" networkActivityIndicatorVisible={true} />
+      
+      <StatusBar backgroundColor={isDarkMode ? 'white' : 'black'} style={!isDarkMode ? 'light' : 'dark'} hideTransitionAnimation="fade" networkActivityIndicatorVisible={true} />
+      <InfoMessage ref={toastRef} />
     </View>
+    </>
   );
 }
 

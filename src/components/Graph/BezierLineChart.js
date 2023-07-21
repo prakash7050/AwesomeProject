@@ -3,60 +3,53 @@
 
 // import React in our code
 import React from 'react';
-import { View } from 'react-native';
 
 // import all the components we are going to use
 import {
-    Dimensions,
-    StyleSheet,
-    Text
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 
 //import React Native chart Kit for different kind of Chart
 import {
-    LineChart
+  LineChart
 } from 'react-native-chart-kit';
+import { isMobileView } from '../../Constant';
 
-const MyBezierLineChart = () => {
+const MyBezierLineChart = ({data,props}) => {
   return (
-    <View>
-      <Text style={styles.header}>Bezier Line Chart</Text>
-      <LineChart
+    <LineChart
         data={{
-          labels: ['January', 'February', 'March', 'April'],
+          labels: data?.labels,
           datasets: [
             {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
+              data:data?.data,
             },
           ],
         }}
-        width={Dimensions.get('window').width - Dimensions.get('window').width/6}
-        height={220}
+        yLabelsOffset={1}
+        xLabelsOffset={5}
+        width={isMobileView ? Dimensions.get('window').width*2 : 12*Dimensions.get('window').width/11}
+        height={isMobileView ? Dimensions.get('window').width-200 : Dimensions.get('window').height/4}
         yAxisLabel={'Rs'}
         chartConfig={{
-          backgroundColor: 'red',
+          backgroundColor: '#eff3ff',
           backgroundGradientFrom: '#eff3ff',
-          backgroundGradientTo: '#efefef',
+          backgroundGradientTo: '#d6d5bf',
           decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 255) => `rgba(1, 0, 0, ${opacity})`,
+          color: (opacity = 255) => `rgba(1, 48, 28, ${opacity})`,
           style: {
-            borderRadius: 16,
+            borderRadius: 10,
+            margin:2
           },
         }}
         bezier
         style={{
-          marginVertical: 8,
-          borderRadius: 16,
+          borderRadius: 10,
+          margin:2
         }}
+        {...props}
       />
-    </View>
   );
 };
 

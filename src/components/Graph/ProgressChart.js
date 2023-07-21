@@ -3,26 +3,22 @@
 
 // import React in our code
 import React from 'react';
-import { View } from 'react-native';
 
 // import all the components we are going to use
 import {
-    Dimensions,
-    StyleSheet,
-    Text
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 
 //import React Native chart Kit for different kind of Chart
 import {
-    ProgressChart
+  ProgressChart
 } from 'react-native-chart-kit';
 
 const MyProgressChart = () => {
   return (
-    <View>
-      <Text style={styles.header}>Progress Chart</Text>
-      <ProgressChart
-        data={[0.4, 0.6, 0.8]}
+    <ProgressChart
+        data={[0.4, 0.6, 0.8,0.9,1]}
         width={Dimensions.get('window').width - Dimensions.get('window').width/6}
         height={220}
         chartConfig={{
@@ -30,7 +26,7 @@ const MyProgressChart = () => {
           backgroundGradientFrom: '#eff3ff',
           backgroundGradientTo: '#efefef',
           decimalPlaces: 2,
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          color: (opacity = 1) => `rgba(7, 4, 8, ${opacity})`,
           style: {
             borderRadius: 16,
           },
@@ -40,7 +36,6 @@ const MyProgressChart = () => {
           borderRadius: 16,
         }}
       />
-    </View>
   );
 };
 
