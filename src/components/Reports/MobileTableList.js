@@ -81,7 +81,7 @@ export default function MobileTableList({headLabel,data,onPressMenu,onSelectData
 
     const searchElement = (text) =>{
       setSearchInput(text)
-      if(selectFilter.length !== 0){
+      if(selectFilter?.length !== 0){
         const filtersArray = data?.filter(ele=> lowerCase(ele[`${selectFilter[selectFilter.length-1]}`  || '']?.toString()).includes(lowerCase((text  || '')?.toString())))
         setFilterData(filtersArray)
         onFilterData?.(filtersArray)
@@ -92,13 +92,14 @@ export default function MobileTableList({headLabel,data,onPressMenu,onSelectData
       }
       
     }
-
+console.log(isEmpty(selectFilter))
     return (
       <View style={{margin:5,paddingTop:20}}>
-        <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
-          <SearchTextInput placeholder='search .........' onChangeText={(text)=>searchElement(text)} value={searchInput} outlineStyle={{borderRadius:40}} inputStyle={{color:"black"}}/>
-          {!searchInput && <TouchableOpacity  style={{flex:0}} onPress={()=>setVisible(true)}>
+        <View style={{flexDirection:'row',justifyContent:'space-between',width:'99%',borderWidth:1,borderRadius:15,height:65,alignItems:'center'}}>
+          <SearchTextInput disabled={isEmpty(selectFilter)} label={'Search'} placeholder='search .........' onChangeText={(text)=>searchElement(text)} value={searchInput} style={{flex:1,width:'85%',marginTop:5}} outlineStyle={{borderWidth:0}} inputStyle={{color:"black"}}/>
+          <TouchableOpacity  style={{flex:0}} onPress={()=>setVisible(true)}>
             <MenuView
+            style={{flex:0}}
               title='Search'
               onPressAction={({ nativeEvent }) => {
                 setSelectFilter([...selectFilter,nativeEvent?.event]);setSearchInput('')
@@ -106,9 +107,9 @@ export default function MobileTableList({headLabel,data,onPressMenu,onSelectData
               actions={keys.map(key=>{let name = selectFilter.filter(ele=> ele === key?.field) ;return {id:key?.field,title:key?.headerName,titleColor:!isEmpty(name) ? 'green' : ''}})}
               shouldOpenOnLongPress={false}
             >
-             <Ionicons style={{marginTop:20,marginLeft:-40}} name="menu" color='black' size={25} />
+             <Ionicons name="menu" color='black' size={25} />
             </MenuView>
-          </TouchableOpacity>}
+          </TouchableOpacity>
         </View>
         <View style={{flexDirection:'row',width:'100%',margin:5}}>
         {selectFilter?.map(name=>
@@ -139,7 +140,7 @@ export default function MobileTableList({headLabel,data,onPressMenu,onSelectData
                 )}
                 //Setting the number of column
                 numColumns={1}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => `key-${index}`}
               />
               <View style={{flexDirection:'column'}}>
               <TouchableOpacity style={{flex:0}} onPress={()=>setVisible(true)}>
@@ -161,7 +162,7 @@ export default function MobileTableList({headLabel,data,onPressMenu,onSelectData
           )}
           //Setting the number of column
           numColumns={1}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => `key1-${index}`}
         />}
       </View>
     )
