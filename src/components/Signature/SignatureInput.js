@@ -3,7 +3,6 @@ import MobileSign from "./MobileSign";
 import WebSign from "./WebSign";
 
 const Sign = () =>{
-    console.log
     return(
         <View style={{width:'100%'}}>
             {Platform.OS === 'web' &&

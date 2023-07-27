@@ -46,12 +46,9 @@ export default function MobileSign() {
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         const fileUri = `${FileSystem.documentDirectory}signature.png`;
         console.log(`,,,,filePath`,fileUri);
-        const fileInfo = await FileSystem.writeAsStringAsync(fileUri,
-          encode.replace("data:image/png;base64,", ""),
-          { encoding: FileSystem.EncodingType.Base64 });
-          await pickLocationAndMoveFile(fileUri);
+        const fileInfo = await FileSystem.writeAsStringAsync(fileUri,encode.replace("data:image/png;base64,", ""),{ encoding: FileSystem.EncodingType.Base64 });
+        await pickLocationAndMoveFile(fileUri);
         const fileCheck = await FileSystem.getInfoAsync(fileUri)
-        console.log(`<<<info<<<`,fileInfo,fileCheck);
         showToast({type:'success',text1:'Signature',text2:'Download successful.',position:'top'})
       } else {
         console.log('Permission denied.');

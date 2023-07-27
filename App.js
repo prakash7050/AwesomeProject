@@ -10,17 +10,17 @@ import Home from "./src/pages/Home";
 
 // const PlaceholderImage = require("./assets/images/background-image.png");
 
+const InfoMessage = forwardRef((props, ref) => {
+  return(
+      <Toast ref={ref} />
+  )
+});
+
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark'
   const [isHidden, setIsHidden] = useState(false)
   const toastRef = useRef(null);
-
-  const InfoMessage = forwardRef((props,ref) => {
-    return(
-        <Toast ref={ref} />
-    )
-  });
-
+  
   return (
     <>
     <View style={{...styles.container,backgroundColor:isDarkMode ? 'white' : 'white'}}>

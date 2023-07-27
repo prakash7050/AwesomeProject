@@ -1,136 +1,168 @@
-import ReactDataGrid from '@inovua/reactdatagrid-community';
+import { Ionicons } from '@expo/vector-icons';
+import { MenuView } from '@react-native-menu/menu';
+import { isEmpty, lowerCase, upperCase } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { TextInput } from 'react-native-paper';
-import CheckBoxInput from '../CheckBox/CheckBoxInput';
+import { FlatList, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { showToast } from '../../Constant';
+import CircularImage from '../ImageView/CircularImage';
+import SearchTextInput from '../TextInputField/SearchTextInput';
 
-const columns = [
-    { name: 'name', header: 'Name', minWidth: 50, defaultFlex: 2 },
-    { name: 'age', header: 'Age', maxWidth: 1000, defaultFlex: 1 },
-  ];
-  // define grid styles here
-  const gridStyle = { minHeight: 550 };
-  // define tabular data here
-  const dataSource = [
-    { id: 1, name: 'John McQueen', age: 35 },
-    { id: 2, name: 'Mary Stones', age: 25 },
-    { id: 3, name: 'Robert Fil', age: 27 },
-    { id: 4, name: 'Roger Robson', age: 81 },
-    { id: 5, name: 'Billary Konwik', age: 18 },
-    { id: 6, name: 'Bob Martin', age: 18 },
-    { id: 7, name: 'Matthew Richardson', age: 54 },
-    { id: 8, name: 'Ritchie Peterson', age: 54 },
-    { id: 9, name: 'Bryan Martin', age: 40 },
-    { id: 10, name: 'Mark Martin', age: 44 },
-    { id: 11, name: 'Michelle Sebastian', age: 24 },
-    { id: 12, name: 'Michelle Sullivan', age: 61 },
-    { id: 13, name: 'Jordan Bike', age: 16 },
-    { id: 14, name: 'Nelson Ford', age: 34 },
-    { id: 15, name: 'Tim Cheap', age: 3 },
-    { id: 16, name: 'Robert Carlson', age: 31 },
-    { id: 17, name: 'Johny Perterson', age: 40 },
-  ];
-export default function MobileTableList({headLabel,data,isCheckbox=true,isFilter=true}) {
-    const [HeadTable, setHeadTable] = useState([])
-    const [dataTable, setDataTable] = useState()
-      const [searchInput, setSearchInput] = useState([]);
+const menuList =
+[
+    {
+      id: 'edit',
+      title: 'Edit',
+      titleColor: '#2367A2',
+      image: Platform.select({
+        ios: 'edit',
+        android: 'ic_menu_edit',
+      }),
+      imageColor: '#2367A2',
+    },
+    {
+      id: 'view',
+      title: 'View',
+      titleColor: '#46F289',
+      image: Platform.select({
+        ios: 'view',
+        android: 'ic_menu_view',
+      }),
+      imageColor: '#46F289',
+      state: 'on',
+    },
+    {
+      id: 'delete',
+      title: 'Delete',
+      attributes: {
+        destructive: true,
+      },
+      image: Platform.select({
+        ios: 'trash',
+        android: 'ic_menu_delete',
+      }),
+    },
+  ]
 
 
-      const getData = () =>{
-        const dataArray = [
-          [<CheckBoxInput />,'1', '2', '3', '4', '5'],
-          [<CheckBoxInput />,'a', 'b', 'c', 'd', 'e'],
-          [<CheckBoxInput />,'1', '2', '3', '4', '5'],
-          [<CheckBoxInput />,'a', 'b', 'c', 'd', 'e'],
-          [<CheckBoxInput />,'1', '2', '3', '4', '5']
-        ]
-       return dataArray;
+export default function MobileTableList({headLabel,data,onPressMenu,onSelectData,onFilterData}) {
+  console.log(`<<<<headdLabell<<<<`,headLabel)
+    const [keys, setKeys] = useState([])
+    const [searchInput, setSearchInput] = useState('');
+    const [selectFilter, setSelectFilter] = useState([])
+    const [filterData, setFilterData] = useState([])
+    const [visible, setVisible] = useState(false)
+
+    useEffect(()=>{
+      if(!isEmpty(headLabel)){
+        setKeys(headLabel)
       }
+      if(isEmpty(filterData) && !isEmpty(data)){
+        setFilterData(data)
+      }
+    },[headLabel])
 
-      useEffect(()=>{
-        const allData = getData();
-        console.log(`<<<<`,allData)
-        let labelArray = [];
-        const datata = ['Head1', 'Head2', 'Head3', 'Head4', 'Head5'];
-        let headLabelData = [];
-        if(isCheckbox){
-          headLabelData = <CheckBoxInput />
-        }
-        if(isFilter){
-        labelArray = allData?.map(label=>{
-            return(
-              <View>
-                <TextInput mode={'flat'} theme={{colors:'primary'}}
-                  style={{backgroundColor:'white',flex:1,textAlign:'left'}} onChangeText={(value)=>console.log(value)} error={false} errorMessage={'error'} />
-              </View>
-            )
-          })
-          setSearchInput([headLabelData,...labelArray])
-          setDataTable([...allData])
-        }
-        headLabelData =[ headLabelData,...datata]
-        setHeadTable(headLabelData)
-      },[headLabel,isCheckbox,isFilter])
+    const onSelect = (value,i) =>{
+      const listArray = [...filterData]
+      listArray[i] = {...value,isSelect:!value?.isSelect}
+      setFilterData([...listArray])
+      filtersArray = listArray?.filter(ele=> ele?.isSelect)
+      onSelectData?.(filtersArray)
+    }
 
-      const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
-        {
-          field: 'age',
-          headerName: 'Age',
-          type: 'number',
-          width: 90,
-        },
-        {
-          field: 'fullName',
-          headerName: 'Full name',
-          description: 'This column has a value getter and is not sortable.',
-          sortable: false,
-          width: 160,
-          valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        },
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
-        {
-          field: 'age',
-          headerName: 'Age',
-          type: 'number',
-          width: 90,
-        },
-        {
-          field: 'fullName',
-          headerName: 'Full name',
-          description: 'This column has a value getter and is not sortable.',
-          sortable: false,
-          width: 160,
-          valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        },
-      ];
+    const remove = (name) =>{
+      const elements = selectFilter?.filter(ele=> ele !== name)
+      if(isEmpty(elements)){
+        setFilterData(data)
+        setSearchInput('')
+      }
+      setSelectFilter(elements)
+    }
+
+    const searchElement = (text) =>{
+      setSearchInput(text)
+      if(selectFilter.length !== 0){
+        const filtersArray = data?.filter(ele=> lowerCase(ele[`${selectFilter[selectFilter.length-1]}`  || '']?.toString()).includes(lowerCase((text  || '')?.toString())))
+        setFilterData(filtersArray)
+        onFilterData?.(filtersArray)
+      }else{
+        showToast({type:'error',text1:'Search Key Name',text2:'First Select Search Key Name',position:'top'})
+        setFilterData(data)
+        onFilterData?.(data)
+      }
       
-      const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-      ];
+    }
 
     return (
-      <View style={{marginTop:10, height: 400, width: '100%' }}>
-        <ReactDataGrid
-            idProperty="id"
-            columns={columns}
-            dataSource={dataSource}
-            style={gridStyle}
-        />
+      <View style={{margin:5,paddingTop:20}}>
+        <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
+          <SearchTextInput placeholder='search .........' onChangeText={(text)=>searchElement(text)} value={searchInput} outlineStyle={{borderRadius:40}} inputStyle={{color:"black"}}/>
+          {!searchInput && <TouchableOpacity  style={{flex:0}} onPress={()=>setVisible(true)}>
+            <MenuView
+              title='Search'
+              onPressAction={({ nativeEvent }) => {
+                setSelectFilter([...selectFilter,nativeEvent?.event]);setSearchInput('')
+              }}
+              actions={keys.map(key=>{let name = selectFilter.filter(ele=> ele === key?.field) ;return {id:key?.field,title:key?.headerName,titleColor:!isEmpty(name) ? 'green' : ''}})}
+              shouldOpenOnLongPress={false}
+            >
+             <Ionicons style={{marginTop:20,marginLeft:-40}} name="menu" color='black' size={25} />
+            </MenuView>
+          </TouchableOpacity>}
+        </View>
+        <View style={{flexDirection:'row',width:'100%',margin:5}}>
+        {selectFilter?.map(name=>
+        <ScrollView horizontal style={{width:'100%'}}>
+          <View style={{flexDirection:'row',borderWidth:2,margin:5,alignItems:'center',borderRadius:10,justifyContent:'space-between'}}>
+          <Text style={{flex:1,fontWeight:"bold",margin:5}}>{upperCase(name)}</Text>
+          <TouchableOpacity onPress={()=>remove(name)}>
+            <Ionicons style={{flex:0}} name='ios-close-circle' size={20} color={'red'} />
+          </TouchableOpacity>
+        </View>
+        </ScrollView>
+        )}</View>
+        {!isEmpty(keys) && !isEmpty(filterData) &&
+        <FlatList
+          data={filterData}
+          renderItem={({ item,index }) => (
+            <TouchableOpacity onLongPress={()=>onSelect({...item},index)} style={{backgroundColor:item?.isSelect ? '#d7f7e4' : 'white', flex: 1, flexDirection: 'row',alignSelf:'center',alignItems:"center", margin: 1 ,borderWidth:1,borderRadius:15,margin:5,borderColor:'black',width:'98%'}}>
+              <CircularImage style={{flex:0,margin:5}} uri={item?.uri} size={80}/>
+              <FlatList
+                data={keys}
+                style={{flex:1}}
+                renderItem={( key= { item }) => (
+                  <View style={{ flexDirection: 'row', margin: 1}}>
+                    <Text style={{fontWeight:"bold",margin:5}}>{key?.item?.headerName}</Text>
+                    <Text style={{margin:5}}>:</Text>
+                    <Text style={{margin:5}}>{key?.item?.valueGetter ?  key?.item?.valueGetter({row:{...item}}) : item[`${key?.item?.field}`]}</Text>
+                  </View>
+                )}
+                //Setting the number of column
+                numColumns={1}
+                keyExtractor={(item, index) => index}
+              />
+              <View style={{flexDirection:'column'}}>
+              <TouchableOpacity style={{flex:0}} onPress={()=>setVisible(true)}>
+              <MenuView
+                title={''}
+                onPressAction={({ nativeEvent }) => {
+                  onPressMenu?.(nativeEvent?.event,item)
+                }}
+                actions={menuList}
+                shouldOpenOnLongPress={false}
+              >
+                <View><Ionicons name="ellipsis-horizontal-outline" color='black' size={25} /></View>
+              </MenuView>
+              </TouchableOpacity>
+              <View style={{flex:1,justifyContent:'center'}}>{item?.isSelect && <Ionicons style={{flex:0}} name='checkmark-circle' size={35} color={'#89f578'} />}</View>
+              </View>
+              
+            </TouchableOpacity>
+          )}
+          //Setting the number of column
+          numColumns={1}
+          keyExtractor={(item, index) => index}
+        />}
       </View>
     )
   }

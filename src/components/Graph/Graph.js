@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons'
+import { Menu, MenuItem } from '@mui/material'
+import { MenuView } from '@react-native-menu/menu'
 import { get, isEmpty } from 'lodash'
 import { forwardRef, useEffect, useState } from 'react'
-import { ScrollView, Text, TouchableOpacity, View } from "react-native"
-import { Menu } from "react-native-paper"
+import { Platform, ScrollView, Text, TouchableOpacity, View } from "react-native"
 import MyBarChart from "./BarChart"
 import MyBezierLineChart from "./BezierLineChart"
 import MyContributionGraph from "./ContributionGraph"
@@ -31,12 +32,63 @@ const GraphView = forwardRef((props,ref) =>{
     }
 })
 
+// not for web
+const menuList = [
+    {
+      id: 'Bar Chart',
+      title: 'Bar Chart',
+      titleColor: '#2367A2',
+    },
+    {
+        id: 'Bezier Line Chart',
+        title: 'Bezier Line Chart',
+        titleColor: '#2367A2',
+      },
+      {
+        id: 'Contribution Graph',
+        title: 'Contribution Graph',
+        titleColor: '#2367A2',
+      },
+      {
+        id: 'Line Chart',
+        title: 'Line Chart',
+        titleColor: '#2367A2',
+      },
+      {
+        id: 'Pie Chart',
+        title: 'Pie Chart',
+        titleColor: '#2367A2',
+      },
+      {
+        id: 'Progress Chart',
+        title: 'Progress Chart',
+        titleColor: '#2367A2',
+      },
+      {
+        id: 'Stacked Bar Chart',
+        title: 'Stacked Bar Chart',
+        titleColor: '#2367A2',
+      },
+  ]
+
 const Graph = ({graphData,xLabelKey,yLabelKey,props}) =>{
     const [visible, setVisible] = useState(false)
     const [graphName, setGraphName] = useState('Pie Chart')
     const [graphLabel, setGraphLabel] = useState( ['Bar Chart','Bezier Line Chart','Contribution Graph','Line Chart','Pie Chart','Progress Chart','Stacked Bar Chart'])
     const [labelArray, setLabelArray] = useState([])
     const [dataArray, setDataArray] = useState([])
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event?.currentTarget);
+    };
+    const handleClose = (e,ele) => {
+        if(ele !== 'backdropClick'){
+            setGraphName(ele)
+        }
+        setAnchorEl(null);
+    };
 
     const filterData = (data) =>{
         let labels = [];
@@ -48,32 +100,49 @@ const Graph = ({graphData,xLabelKey,yLabelKey,props}) =>{
         setLabelArray(labels)
         setDataArray(values)
     }
+
     useEffect(() => {
      if(!isEmpty(graphData)){
         filterData(graphData)
      }
     }, [graphData])
+
+    
     
     return(
-        <View style={{borderWidth:1,borderColor:'black',width:'100%',margin:2,borderRadius:10}}>
-           <Menu
-                contentStyle={{backgroundColor:'white'}}
-                visible={visible}
-                style={{ flexDirection: 'row',marginTop:200}}
-                onDismiss={()=>setVisible(false)}
-                anchorPosition='bottom'
-                anchor={
-                <View >
-                    <TouchableOpacity
-                        onPress={(e)=>setVisible(true)}>
-                            <Ionicons size={30} name={'menu'} />
-                    </TouchableOpacity>
-                    <Text style={{fontSize:20,fontWeight:'bold',textAlign:'center',marginTop:-15}}>{graphName}</Text>
-                    <Text></Text>
-                </View>}>
-                {graphLabel?.map(label=><Menu.Item testID='menu' accessibilityState titleStyle={{color:'black'}} onPress={() => {setGraphName(label);setVisible(false)}} title={label} />)}
-            </Menu>
+        <View style={{borderWidth:1,borderColor:'black',margin:2,borderRadius:10,justifyContent:'space-between'}}>
+           
+              <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                <Text style={{flex:8,fontSize:20,fontWeight:'bold',textAlign:'center'}}>{graphName}</Text>
+                {Platform.OS === 'web' ?
+                <TouchableOpacity
+                    style={{flex:1}}
+                    onPress={handleClick}>
+                        <Ionicons size={30} name={'ellipsis-vertical-outline'} />
+                </TouchableOpacity>
+                :
+                <MenuView
+                    title={''}
+                    onPressAction={({ nativeEvent }) => {
+                    setGraphName(nativeEvent?.event)
+                    }}
+                    actions={menuList}
+                    shouldOpenOnLongPress={false}
+                >
+                    <TouchableOpacity><Ionicons name="ellipsis-vertical-outline" color='black' size={25} /></TouchableOpacity>
+                </MenuView>}
+            </View>
             {graphName && <ScrollView horizontal><GraphView props={props} data={{labels:labelArray,data:dataArray}} name={graphName} /></ScrollView>}
+            
+            {/* only for web */}
+            {Platform.OS === 'web' && <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+            >
+                {graphLabel?.map(ele=><MenuItem onClick={(e)=>handleClose(e,ele)}>{ele}</MenuItem>)}
+            </Menu>}
+            {/* only for web */}
         </View>
     )
 }

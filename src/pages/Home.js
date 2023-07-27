@@ -24,10 +24,18 @@ import SearchTextInput from "../components/TextInputField/SearchTextInput";
 import SingleLineText from "../components/TextInputField/SinglLineTextInput";
 import UrlTextInput from "../components/TextInputField/UrlTextInput";
 
+const tableData = [
+    { label_one: 'example1', label_two: 'Snow', label_three: 'Jon', label_four: 35 },
+    { label_one: 'example', label_two: 'Lannister', label_three: 'Cersei', label_four: 42 },
+    { label_one: 'example', label_two: 'Lannister', label_three: 'Jaime', label_four: 45 },
+    { label_one: 'example2', label_two: 'Stark', label_three: 'Arya', label_four: 16 },
+    { label_one: 'example', label_two: 'Targaryen', label_three: 'Daenerys', label_four: null },
+    { label_one: 'example', label_two: 'Melisandre', label_three: 'Daenerys', label_four: 150 },
+    { label_one: 'example2', label_two: 'Clifford', label_three: 'Ferrara', label_four: 44 },
+    { label_one: 'example', label_two: 'Frances', label_three: 'Rossini', label_four: 36 },
+    { label_one: 'example', label_two: 'Roxie', label_three: 'Harvey', label_four: 65 },
+  ];
 
-
-const blurhash =
-  '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 const Home = () =>{
     const [name, setName] = useState('')
     const [nameError, setNameError] = useState('')
@@ -145,8 +153,9 @@ const Home = () =>{
             <Button title="View Report" onPress={()=>setComponentName('reports')}/>
             {componentName === 'reports' &&
             <View>
-                <TableList />
+                <TableList data={tableData} />
             </View>}
+            {/* <CircularImage /> */}
             <Name suffixNameLabel={'Mr./Ms.'} firstNameLabel={'First Name'} lastNameLabel={'Last Name'} middleNameLabel={'Middle Name'} onChange={(value)=>console.log('Name',value)} />
             <AddressInput onChange={(value)=>console.log(value)} />
             <Sign />
