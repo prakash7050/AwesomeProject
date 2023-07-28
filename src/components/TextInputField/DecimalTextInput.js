@@ -59,7 +59,7 @@ const DecimalTextInput = (
       }
 
   return (
-    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
+    <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,width:style?.width}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
                   theme={{colors:'primary',...theme}}
@@ -73,7 +73,7 @@ const DecimalTextInput = (
                   maxLength={maxLength}
                   onFocus={onFocus}
                   value={value ? isNaN(value) ? '' : value : fieldValue}
-                  outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
+                  outlineStyle={{height:50,...outlineStyle}}
                   onBlur={required ? isRequired : onBlur}
                   placeholder={placeholder}
                   error={error || isError}

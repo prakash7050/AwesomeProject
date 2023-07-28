@@ -49,7 +49,7 @@ const UrlTextInput = (
       }
 
   return (
-    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
+    <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,width:style?.width}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
                   theme={{colors:'primary',...theme}}
@@ -57,7 +57,7 @@ const UrlTextInput = (
                   label={required ? `${label}*` : label}
                   disabled={disabled}
                   multiline={false}
-                  outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
+                  outlineStyle={{height:50,...outlineStyle}}
                   textContentType='URL'
                   inputMode={'url'}
                   mode={mode}

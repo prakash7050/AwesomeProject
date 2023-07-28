@@ -7,6 +7,7 @@ import RadioButtonInput from "../components/Button/RadioButton";
 import CheckBoxInput from "../components/CheckBox/CheckBoxInput";
 import DateInput from "../components/DateTime/DateInput";
 import TimeInput from "../components/DateTime/TimeInput";
+import SubForm from "../components/Form/SubForm";
 import Graph from "../components/Graph/Graph";
 import ImagePicker from "../components/ImageInput/ImagePicker";
 import Name from "../components/Name/NameInput";
@@ -21,19 +22,19 @@ import MobileTextInput from "../components/TextInputField/MobileTextInput";
 import MultiLineText from "../components/TextInputField/MultiLineTextInput";
 import NumberTextInput from "../components/TextInputField/NumberTextInput";
 import SearchTextInput from "../components/TextInputField/SearchTextInput";
-import SingleLineText from "../components/TextInputField/SinglLineTextInput";
+import SingleLineText from "../components/TextInputField/SingleLineTextInput";
 import UrlTextInput from "../components/TextInputField/UrlTextInput";
 
 const tableData = [
-    { label_one: 'example1', label_two: 'Snow', label_three: 'Jon', label_four: 35 },
-    { label_one: 'example', label_two: 'Lannister', label_three: 'Cersei', label_four: 42 },
-    { label_one: 'example', label_two: 'Lannister', label_three: 'Jaime', label_four: 45 },
-    { label_one: 'example2', label_two: 'Stark', label_three: 'Arya', label_four: 16 },
-    { label_one: 'example', label_two: 'Targaryen', label_three: 'Daenerys', label_four: null },
-    { label_one: 'example', label_two: 'Melisandre', label_three: 'Daenerys', label_four: 150 },
-    { label_one: 'example2', label_two: 'Clifford', label_three: 'Ferrara', label_four: 44 },
-    { label_one: 'example', label_two: 'Frances', label_three: 'Rossini', label_four: 36 },
-    { label_one: 'example', label_two: 'Roxie', label_three: 'Harvey', label_four: 65 },
+    { label_one: 'example1', label_two: 'Snow', label_three: 'Jon', label_four: 35 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example', label_two: 'Lannister', label_three: 'Cersei', label_four: 42 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example', label_two: 'Lannister', label_three: 'Jaime', label_four: 45 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example2', label_two: 'Stark', label_three: 'Arya', label_four: 16 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example', label_two: 'Targaryen', label_three: 'Daenerys', label_four: null ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example', label_two: 'Melisandre', label_three: 'Daenerys', label_four: 150 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example2', label_two: 'Clifford', label_three: 'Ferrara', label_four: 44 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example', label_two: 'Frances', label_three: 'Rossini', label_four: 36 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
+    { label_one: 'example', label_two: 'Roxie', label_three: 'Harvey', label_four: 65 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
   ];
 
 const Home = () =>{
@@ -156,10 +157,26 @@ const Home = () =>{
                 <TableList data={tableData} />
             </View>}
             {/* <CircularImage /> */}
-            <Name suffixNameLabel={'Mr./Ms.'} firstNameLabel={'First Name'} lastNameLabel={'Last Name'} middleNameLabel={'Middle Name'} onChange={(value)=>console.log('Name',value)} />
-            <AddressInput onChange={(value)=>console.log(value)} />
-            <Sign />
-            <Graph graphData={graphData} yLabelKey={'value'} xLabelKey={'month'} />
+            <View style={{paddingTop:10}}>
+            <Button title="View Graph/Signature" onPress={()=>setComponentName('graphs')}/>
+            {componentName === 'graphs' && <View>
+                <Sign />
+                <Graph graphData={graphData} yLabelKey={'value'} xLabelKey={'month'} />
+            </View>}
+            </View>
+            <View style={{paddingTop:10}}>
+            <Button title="View Name/Address" onPress={()=>setComponentName('name')}/>
+            {componentName === 'name' && <View>
+                <Name prefixLabel={'Prefix'} suffixNameLabel={'Suffix'} firstNameLabel={'First Name'} lastNameLabel={'Last Name'} middleNameLabel={'Middle Name'} onChange={(value)=>console.log('Name',value)} />
+                <AddressInput onChange={(value)=>console.log(value)} />
+            </View>}
+            </View>
+            <View style={{paddingTop:10}}>
+            <Button title="View SubForm" onPress={()=>setComponentName('subForm')}/>
+            {componentName === 'subForm' && <View>
+                <SubForm />
+            </View>}
+            </View>
             {/* <Map /> */}
             
         </View>

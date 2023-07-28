@@ -38,7 +38,7 @@ export default function DateInput({
         hasError={error}
         theme={{colors:'primary',...theme}}
         placeholder={placeholder || 'Choose Date'}
-        outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
+        outlineStyle={{height:50,...outlineStyle}}
         style={{backgroundColor:'white',textAlign:'left',...style}}
         {...res}
     />

@@ -35,7 +35,6 @@ const EmailTextInput = (
       const [values, setValue] = useState('')
 
       const isRequired = () =>{
-        console.log(!value && required && !error && !errorMessage,'<<<<<',value , required , !error ,errorMessage)
         if(!values && required && !error && !errorMessage){
           setIsError(true)
         }else{
@@ -52,7 +51,7 @@ const EmailTextInput = (
       }
 
   return (
-    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
+    <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,width:style?.width}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
                   theme={{colors:'primary',...theme}}
@@ -60,7 +59,7 @@ const EmailTextInput = (
                   label={required ? `${label}*` : label}
                   disabled={disabled}
                   multiline={false}
-                  outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
+                  outlineStyle={{height:50,...outlineStyle}}
                   textContentType='name'
                   inputMode={'email'}
                   mode={mode}

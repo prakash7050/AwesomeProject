@@ -65,7 +65,7 @@ export default function DateInput({
         dataDetectorTypes={'calendarEvent'}
         hasError={error}
         placeholder={placeholder || 'Choose Date'}
-        outlineStyle={{height:50,borderEndWidth:10,...outlineStyle}}
+        outlineStyle={{height:50,...outlineStyle}}
         style={{backgroundColor:'white',textAlign:'left',...style}}
         {...res}
       />

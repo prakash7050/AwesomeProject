@@ -88,7 +88,7 @@ const SingleSelectField = ({
           styleTextDropdownSelected={{marginLeft:20,...styleTextDropdownSelected}}
           styleSelectorContainer={{margin:10,...styleSelectorContainer}}
           styleTextDropdown={{marginLeft:20,...styleTextDropdown}}
-          styleDropdownMenuSubsection={{height:50,borderEndWidth:10,borderRadius:5,borderColor:"black",...styleDropdownMenuSubsection}}
+          styleDropdownMenuSubsection={{height:50,borderRadius:5,borderColor:"black",...styleDropdownMenuSubsection}}
           searchInputStyle={{height:50,...searchInputStyle}}
           
         />

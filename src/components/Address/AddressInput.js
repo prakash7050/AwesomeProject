@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { isMobileView } from "../../Constant";
 import NumberTextInput from "../TextInputField/NumberTextInput";
-import SingleLineText from "../TextInputField/SinglLineTextInput";
+import SingleLineText from "../TextInputField/SingleLineTextInput";
 
 const AddressInput = ({value,onChange}) =>{
     let [nameList, setNameList] = useState({});

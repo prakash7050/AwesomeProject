@@ -34,6 +34,10 @@ const SearchTextInput = (
       const [isError, setIsError] = React.useState(false)
       const [inputValue, setInputValue] = React.useState(value)
 
+      React.useEffect(()=>{
+        setInputValue(value)
+      },[value])
+
       const isRequired = () =>{
         if(!value && required && !error && !errorMessage){
           setIsError(true)

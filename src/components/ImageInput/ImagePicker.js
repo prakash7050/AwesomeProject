@@ -12,7 +12,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { Image } from 'expo-image';
-import SingleLineText from '../TextInputField/SinglLineTextInput';
+import SingleLineText from '../TextInputField/SingleLineTextInput';
 
 export default function ImagePicker({fileType,label,setFile,removeFile,isShowImage=false}) {
   const [singleFile, setSingleFile] = useState('');

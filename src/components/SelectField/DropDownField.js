@@ -21,7 +21,7 @@ const DropDownField = ({
     style,
     ...res
 }) => {
-  const [selectedValue, setSelectedValue] = useState("js");
+  const [selectedValue, setSelectedValue] = useState("");
   const [isError, setIsError] = useState(false)
   const [borderColor, setBorderColor] = useState('black')
 
@@ -35,20 +35,21 @@ const DropDownField = ({
 
 const handleChange = (itemValue) =>{
     setSelectedValue(itemValue)
-    onValueChange(itemValue)
+    onValueChange?.(itemValue)
 }
-
+console.log(`<<<<itemData<<<`,itemData)
   return (
-    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
-         {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label}</Text></View>}
+    <View style={{width:'100%',height:60,flexDirection:'column',padding:5,...style}}>
+         {/* {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label}</Text></View>} */}
         <View style={{flex:1,flexDirection:'row',height:50,borderRadius:5,borderWidth:1}}>
+        {label &&<View><Text style={{paddingLeft:10,marginTop:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label} :</Text></View>}
             <Picker
                 mode={mode || 'dropdown'}
                 onFocus={()=>handleClick('onFocus')}
                 onBlur={()=>handleClick('onBlur')}
                 placeholder={placeholder}
                 selectedValue={value || selectedValue}
-                style={{height: 50, flex:1,borderEndWidth:10,borderColor:borderColor,borderRadius:5,...style }}
+                style={{borderStyle:'dotted',height: 40, flex:1,borderWidth:0,borderEndWidth:0,borderColor:'white',borderRadius:5 }}
                 onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
                 numberOfLines={numberOfLines}
                 {...res}

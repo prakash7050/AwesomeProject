@@ -72,6 +72,7 @@ export default function WebTableList({headLabel=[],data=[],onPressMenu,onSelectD
           pageSizeOptions={[5, 10]}
           checkboxSelection
           disableRowSelectionOnClick
+          pagination
           onRowSelectionModelChange={(rowSelectionModel,details)=>onRowSelectionModelChange(rowSelectionModel)}
         />
          <Menu

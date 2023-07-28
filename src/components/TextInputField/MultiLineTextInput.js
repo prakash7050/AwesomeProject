@@ -55,7 +55,7 @@ const MultiLineText = (
       }
 
   return (
-    <View style={{margin:5,width:'100%',minHeight:70,flexDirection:'column'}}>
+    <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,width:style?.width}}>
       <View style={{flex:1,flexDirection:'row'}}>
           <TextInput
             theme={{colors:'primary',...theme}}
@@ -63,7 +63,7 @@ const MultiLineText = (
             label={required ? `${label}*` : label}
             disabled={disabled}
             multiline={true}
-            outlineStyle={{minHeight:50,borderEndWidth:10,...outlineStyle}}
+            outlineStyle={{minHeight:50,...outlineStyle}}
             numberOfLines={numberOfLines}
             mode={mode}
             inputMode={'email'}

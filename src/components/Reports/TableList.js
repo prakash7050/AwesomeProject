@@ -40,11 +40,16 @@ const TableList = ({data=[],onPressMenu,onSelectData,onFilterData}) =>{
           const keys = Object.keys(data[0])
           let headerData = []
           keys?.map(key=>{
-            headerData.push({
-              field: key,
-              headerName: upperCase(key),
-              textAlign:'center',
-            })
+           key !== 'uri' &&
+           headerData.push({
+            field: key,
+            headerName: upperCase(key),
+            textAlign:'center',
+            resizable:true,
+            editable:true,
+            groupable:true,
+            width:200
+          })
           })
           setHeader(headerData)
         }

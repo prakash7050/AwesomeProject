@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { isMobileView } from "../../Constant";
-import SingleLineText from "../TextInputField/SinglLineTextInput";
+import DropDownField from "../SelectField/DropDownField";
+import SingleLineText from "../TextInputField/SingleLineTextInput";
 
 
 
 
 
-const NameInput = ({firstNameLabel,middleNameLabel,lastNameLabel,suffixNameLabel,onChange}) =>{
+const NameInput = ({firstNameLabel,middleNameLabel,lastNameLabel,prefixLabel,suffixNameLabel,onChange}) =>{
     let [nameList, setNameList] = useState({});
+    const [prefix, setPrefix] = useState([{label:'Mr.',value:'Mr.'},{label:"Mrs.",value:'Mrs.'},{label:'Ms.',value:'Ms.'}])
 
     const handleChange = (name,value) =>{
        const nameValue = {...nameList,[`${name}`]:value}
@@ -19,10 +21,11 @@ const NameInput = ({firstNameLabel,middleNameLabel,lastNameLabel,suffixNameLabel
 
     return(
         <View style={{flexDirection:!isMobileView ? 'row' : 'column',width:'100%'}}>
-            {suffixNameLabel && <SingleLineText onChangeText={(value)=>handleChange(suffixNameLabel,value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '10%' : '50%'}} label={suffixNameLabel} />}
-            {firstNameLabel && <SingleLineText onChangeText={(value)=>handleChange(firstNameLabel,value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '30%' : '90%'}} label={firstNameLabel} />}
-            {middleNameLabel && <SingleLineText onChangeText={(value)=>handleChange(middleNameLabel,value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '30%' : '90%'}} label={middleNameLabel} />}
-            {lastNameLabel && <SingleLineText onChangeText={(value)=>handleChange(lastNameLabel,value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '30%' : '90%'}} label={lastNameLabel} />}
+            {prefixLabel && <View style={{width:isMobileView ? '100%' : 100}}><DropDownField onValueChange={(value)=>handleChange(prefixLabel,value)} itemData={prefix} /></View>}
+            {firstNameLabel && <SingleLineText onChangeText={(value)=>handleChange(firstNameLabel,value)} outlineStyle={{borderEndWidth:1}} label={firstNameLabel} />}
+            {middleNameLabel && <SingleLineText onChangeText={(value)=>handleChange(middleNameLabel,value)} outlineStyle={{borderEndWidth:1}} label={middleNameLabel} />}
+            {lastNameLabel && <SingleLineText onChangeText={(value)=>handleChange(lastNameLabel,value)} outlineStyle={{borderEndWidth:1}} label={lastNameLabel} />}
+            {suffixNameLabel && <SingleLineText onChangeText={(value)=>handleChange(suffixNameLabel,value)} outlineStyle={{borderEndWidth:1}} label={suffixNameLabel} />}
         </View>
     )
 }
