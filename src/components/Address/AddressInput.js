@@ -27,21 +27,21 @@ const AddressInput = ({value,onChange}) =>{
         }
        }
         setNameList(nameValue);
-        onChange(nameValue);
+        onChange?.(nameValue);
     }
 
     return(
         <View style={{flexDirection:'column',width:'100%'}}>
             <View style={{flexDirection:!isMobileView ? 'row' : 'column',width:'100%'}}>
-                <SingleLineText value={nameList["Address Line 1"]} onChangeText={(value)=>handleChange("Address Line 1",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '45%' : '90%'}} label={"Address Line 1"} />
-                <SingleLineText value={nameList["Address Line 2"]} onChangeText={(value)=>handleChange("Address Line 2",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '41%' : '90%'}} label={"Address Line 2"} />
-                <NumberTextInput value={nameList["Postal Code"]} maxLength={6} onChangeText={(value)=>handleChange("Postal Code",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '15%' : '90%'}} label={"Postal Code"} />
+                <SingleLineText value={nameList["Address Line 1"]} onChangeText={(value)=>handleChange("Address Line 1",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '50%' : '100%'}} label={"Address Line 1"} />
+                <SingleLineText value={nameList["Address Line 2"]} onChangeText={(value)=>handleChange("Address Line 2",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '50%' : '100%'}} label={"Address Line 2"} />
                 
             </View>
             <View style={{flexDirection:!isMobileView ? 'row' : 'column',width:'100%'}}>
-                <SingleLineText value={nameList["City / District"]} onChangeText={(value)=>handleChange("City / District",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '90%'}} label={"City / District"} />
-                <SingleLineText value={nameList["State / Province"]} onChangeText={(value)=>handleChange("State / Province",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '90%'}} label={"State / Province"} />
-                <SingleLineText value={nameList["Country"]} onChangeText={(value)=>handleChange("Country",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '90%'}} label={"Country"} />
+            <NumberTextInput value={nameList["Postal Code"]} maxLength={6} onChangeText={(value)=>handleChange("Postal Code",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '100%'}} label={"Postal Code"} />
+                <SingleLineText value={nameList["City / District"]} onChangeText={(value)=>handleChange("City / District",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '100%'}} label={"City / District"} />
+                <SingleLineText value={nameList["State / Province"]} onChangeText={(value)=>handleChange("State / Province",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '100%'}} label={"State / Province"} />
+                <SingleLineText value={nameList["Country"]} onChangeText={(value)=>handleChange("Country",value)} outlineStyle={{borderEndWidth:1}} style={{flex:1,width:!isMobileView ? '25%' : '100%'}} label={"Country"} />
             </View>
         </View>
         

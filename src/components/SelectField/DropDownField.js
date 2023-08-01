@@ -1,9 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Tooltip } from 'react-native-paper';
-
+import { isMobileView } from '../../Constant';
 
 const DropDownField = ({
     required,
@@ -34,22 +38,24 @@ const DropDownField = ({
   };
 
 const handleChange = (itemValue) =>{
+  console.log(itemValue)
     setSelectedValue(itemValue)
     onValueChange?.(itemValue)
 }
 console.log(`<<<<itemData<<<`,itemData)
   return (
-    <View style={{width:'100%',height:60,flexDirection:'column',padding:5,...style}}>
+    <View style={{width:'100%',height:60,minWidth:200,flexDirection:'column',...style}}>
          {/* {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label}</Text></View>} */}
-        <View style={{flex:1,flexDirection:'row',height:50,borderRadius:5,borderWidth:1}}>
-        {label &&<View><Text style={{paddingLeft:10,marginTop:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label} :</Text></View>}
+        {isMobileView ?
+        <View style={{flex:1,flexDirection:'row',height:20,borderRadius:5,borderWidth:1}}>
+        {label &&<View><Text style={{paddingLeft:10,marginTop:20,fontSize:15,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label} :</Text></View>}
             <Picker
                 mode={mode || 'dropdown'}
                 onFocus={()=>handleClick('onFocus')}
                 onBlur={()=>handleClick('onBlur')}
                 placeholder={placeholder}
                 selectedValue={value || selectedValue}
-                style={{borderStyle:'dotted',height: 40, flex:1,borderWidth:0,borderEndWidth:0,borderColor:'white',borderRadius:5 }}
+                style={{height:20,marginTop:5, flex:1,borderWidth:0,borderEndWidth:0,borderColor:'white',borderRadius:5 }}
                 onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
                 numberOfLines={numberOfLines}
                 {...res}
@@ -69,6 +75,22 @@ console.log(`<<<<itemData<<<`,itemData)
             </View>
             }
         </View>
+        :
+        <FormControl fullWidth>
+          <InputLabel >{required ? `${label}*` : label}</InputLabel>
+        <Select
+        value={value}
+        label={label}
+        required={false}
+        style={{height:60}}
+        onChange={(e)=>handleChange(e.target.value)}
+      >
+        {itemData && itemData?.map((data,i)=>(
+            <MenuItem value={data?.value} key={i} >{data?.label}</MenuItem>
+        ))}
+      </Select>
+      </FormControl>
+      }
         {error &&<Text style={{color:errorColor || 'red',marginLeft:5}}>{errorMessage}</Text>}
     </View>
   );

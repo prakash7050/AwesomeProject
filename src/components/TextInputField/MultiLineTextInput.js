@@ -55,11 +55,11 @@ const MultiLineText = (
       }
 
   return (
-    <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,width:style?.width}}>
+    <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,...style}}>
       <View style={{flex:1,flexDirection:'row'}}>
           <TextInput
             theme={{colors:'primary',...theme}}
-            style={{backgroundColor:'white',flex:1,textAlign:'left',...style}}
+            style={{backgroundColor:'white',flex:1,textAlign:'left'}}
             label={required ? `${label}*` : label}
             disabled={disabled}
             multiline={true}

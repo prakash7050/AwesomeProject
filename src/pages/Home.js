@@ -7,6 +7,7 @@ import RadioButtonInput from "../components/Button/RadioButton";
 import CheckBoxInput from "../components/CheckBox/CheckBoxInput";
 import DateInput from "../components/DateTime/DateInput";
 import TimeInput from "../components/DateTime/TimeInput";
+import Form from "../components/Form/Form";
 import SubForm from "../components/Form/SubForm";
 import Graph from "../components/Graph/Graph";
 import ImagePicker from "../components/ImageInput/ImagePicker";
@@ -24,6 +25,7 @@ import NumberTextInput from "../components/TextInputField/NumberTextInput";
 import SearchTextInput from "../components/TextInputField/SearchTextInput";
 import SingleLineText from "../components/TextInputField/SingleLineTextInput";
 import UrlTextInput from "../components/TextInputField/UrlTextInput";
+import MainForm from "./Form/MainForm";
 
 const tableData = [
     { label_one: 'example1', label_two: 'Snow', label_three: 'Jon', label_four: 35 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
@@ -45,7 +47,7 @@ const Home = () =>{
     const [summary, setSummary] = useState('')
     const [summaryError, setSummaryError] = useState('')
     const [isLoading,setIsLoading] = useState(false)
-    const [componentName, setComponentName] = useState('')
+    const [componentName, setComponentName] = useState('createForm')
     const [imageUrl, setImageUrl] = useState('')
 
     const handleChange = (name,value) =>{
@@ -175,6 +177,18 @@ const Home = () =>{
             <Button title="View SubForm" onPress={()=>setComponentName('subForm')}/>
             {componentName === 'subForm' && <View>
                 <SubForm />
+            </View>}
+            </View>
+            <View style={{paddingTop:10}}>
+            <Button title="View Form" onPress={()=>setComponentName('form')}/>
+            {componentName === 'form' && <View>
+                <Form />
+            </View>}
+            </View>
+            <View style={{paddingTop:10}}>
+            <Button title="Create From" onPress={()=>setComponentName('createForm')}/>
+            {componentName === 'createForm' && <View >
+                <MainForm />
             </View>}
             </View>
             {/* <Map /> */}
