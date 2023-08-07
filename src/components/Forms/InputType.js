@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { isMobileView } from "../../Constant";
 
@@ -202,9 +203,14 @@ const advancedFields = [
 */}
 
 const InputType = (props) =>{
+    const [selectItems, setSelectItems] = useState([])
+
+    const handleSelect = (item,i) =>{
+        props?.onChange?.(item)
+    }
 
     return(
-        <View key={props?.key} style={{width:'100%',backgroundColor:"#f4f6fa",alignItems:'center',justifyContent:'center',height:'100%'}}>
+        <View key={props?.key} style={{backgroundColor:"#f4f6fa"}}>
             <FlatList
                 data={props?.type === 'Basic' ? basicFields : advancedFields}
                 style={{flex:1}}
@@ -212,7 +218,7 @@ const InputType = (props) =>{
                 scrollEnabled={false}
                 renderItem={({ item,index }) => {
                     return(
-                        <TouchableOpacity style={{flexDirection:"column",width:150,height:100,backgroundColor:'white',alignItems:'center',justifyContent:'center',margin:10}}>
+                        <TouchableOpacity onPress={()=>handleSelect(item,index)} style={{flexDirection:"column",width:100,height:70,backgroundColor:'white',alignItems:'center',justifyContent:'center',margin:10}}>
                             <Ionicons name={item?.icon || "user"} size={35} />
                             <Text style={{fontWeight:'bold'}}>{item?.label}</Text>
                         </TouchableOpacity>

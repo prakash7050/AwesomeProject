@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { forwardRef, useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { forwardRef, useState } from "react";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import InputType from "./InputType";
 
 const TypeFiled = forwardRef((props,ref) =>{
@@ -14,7 +14,7 @@ const TypeFiled = forwardRef((props,ref) =>{
     }
 })
 
-const MainForm = () =>{
+const InputTypeForm = (props) =>{
     const [input, setInput] = useState([{name:'Basic', show: true},{name:'Advance', show: true},{name:'Special', show: true}])
 
     const show = (isShow,i) =>{
@@ -24,38 +24,30 @@ const MainForm = () =>{
         setInput([...list])
     }
 
-    useEffect(()=>{
-        setInput([...input])
-    },[])
+    const handleSelect = (item,i) =>{
+        props?.onChange?.(item)
+    }
 
     return(
-        <View style={{margin:10,flexDirection:'row',width:"100%"}}>
-            <View style={{width:'100%',flexDirection:"column",backgroundColor:"#f4f6fa"}}>
+        <View style={{flexDirection:"column"}}>
                 {input?.map((type,i)=>{
                     return(
-                        <View style={{flex:i+1}}>
-                            <TouchableOpacity onPress={()=>show(type?.show,i)} style={{flexDirection: 'row',alignItems:'flex-start',justifyContent:'space-between',margin:10,borderBottomWidth:1}}>
+                        <View key={type?.name} style={Platform.OS !== 'web' && {flex:i+1}}>
+                            <TouchableOpacity key={type?.name} onPress={()=>show(type?.show,i)} style={{flexDirection: 'row',alignItems:'flex-start',justifyContent:'space-between',margin:10,borderBottomWidth:1}}>
                                 <Text style={{fontWeight:'bold',fontSize:15,justifyContent:'flex-start'}}>{type?.name} Fields</Text>
                                 <Ionicons name={type?.show ? 'md-remove-circle' : 'add-circle'} size={20} style={{justifyContent:'flex-end'}} />
                             </TouchableOpacity>
-                            <View>
+                            <View style={{backgroundColor:"#f4f6fa",alignItems:"center"}}>
                                 {type?.show &&
-                                    <TypeFiled key={type?.name} type={type?.name} />
+                                    <TypeFiled onChange={(item)=>handleSelect(item,i)} key={type?.name} type={type?.name} />
                                 }
                             </View>
                         </View>
                     )
                 })}
             </View>
-            {/* <View style={{width:'40%',height:"100%"}}>
-            <Text>Hello</Text>
-            </View>
-            <View style={{width:'30%',backgroundColor:"green",height:"100%"}}>
-            <Text>Hello</Text>
-            </View> */}
-        </View>
     )
 }
 
 
-export default MainForm;
+export default InputTypeForm;

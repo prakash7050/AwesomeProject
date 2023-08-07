@@ -9,6 +9,7 @@ import DateInput from "../components/DateTime/DateInput";
 import TimeInput from "../components/DateTime/TimeInput";
 import Form from "../components/Form/Form";
 import SubForm from "../components/Form/SubForm";
+import MainForm from "../components/Forms/MainForm";
 import Graph from "../components/Graph/Graph";
 import ImagePicker from "../components/ImageInput/ImagePicker";
 import Name from "../components/Name/NameInput";
@@ -25,7 +26,6 @@ import NumberTextInput from "../components/TextInputField/NumberTextInput";
 import SearchTextInput from "../components/TextInputField/SearchTextInput";
 import SingleLineText from "../components/TextInputField/SingleLineTextInput";
 import UrlTextInput from "../components/TextInputField/UrlTextInput";
-import MainForm from "./Form/MainForm";
 
 const tableData = [
     { label_one: 'example1', label_two: 'Snow', label_three: 'Jon', label_four: 35 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},

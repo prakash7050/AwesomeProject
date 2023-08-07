@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import CheckBoxInput from "../CheckBox/CheckBoxInput";
 import ImagePicker from "../ImageInput/ImagePicker";
 import DropDownField from "../SelectField/DropDownField";
 import MultiSelectField from "../SelectField/MultiSelectField";
@@ -20,7 +21,7 @@ const FormField = forwardRef((props,ref) =>{
         console.log(`<<<<formfield<<<`,value)
         props?.onChange?.(value)
     }
-    console.log(`<<<<<<form<<<`,props)
+    
     switch(props?.type){
         case 'singleText':
             return <SingleLineText onChangeText={(value)=>handleChange(value)} {...props} />;
@@ -54,6 +55,8 @@ const FormField = forwardRef((props,ref) =>{
             return <ImagePicker fileType={'application/pdf'} setFile={(file)=> handleChange(file?.uri)} {...props} />
         case 'audio':
             return <ImagePicker fileType={'audio'} setFile={(file)=> handleChange(file?.uri)} {...props} />
+        case 'checkbox':
+            return <CheckBoxInput {...props} onPress={(value)=>handleChange(value)} />
 }
 })
 

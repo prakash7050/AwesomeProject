@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View, useColorScheme } from "react-native";
 import 'react-native-gesture-handler';
 import { Provider } from "react-native-paper";
 import Toast from 'react-native-toast-message';
-import Home from "./src/pages/Home";
+import CreateForm from "./src/pages/CreateForm";
 // import Button from './components/Button';
 // import ImageViewer from './components/ImageViewer';
 
@@ -33,7 +33,7 @@ export default function App() {
       
       <ScrollView onScroll={()=>setIsHidden(true)}>
       
-        <Home />
+        <CreateForm />
       </ScrollView>
       </Provider>
       

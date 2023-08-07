@@ -30,6 +30,7 @@ const SingleLineText = (
       outlineStyle,
       contentStyle,
       theme,
+      defaultValue,
       ...res
     }) => {
       const [isError, setIsError] = React.useState(false)
@@ -53,6 +54,7 @@ const SingleLineText = (
     <View style={{flexDirection:'column',paddingLeft:5,paddingRight:5,...style}}>
       <View style={{flex:1,flexDirection:'row'}}>
               <TextInput
+                  defaultValue={defaultValue || ''}
                   theme={{colors:'primary',...theme}}
                   style={{backgroundColor:'white',flex:1,textAlign:'left'}}
                   label={required ? `${label}*` : label}

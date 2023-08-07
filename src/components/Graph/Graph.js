@@ -1,9 +1,8 @@
-import { Ionicons } from '@expo/vector-icons'
 import { Menu, MenuItem } from '@mui/material'
-import { MenuView } from '@react-native-menu/menu'
 import { get, isEmpty } from 'lodash'
 import { forwardRef, useEffect, useState } from 'react'
-import { Platform, ScrollView, Text, TouchableOpacity, View } from "react-native"
+import { Platform, ScrollView, Text, View } from "react-native"
+import MenuViewList from '../Menu/MenuViewList'
 import MyBarChart from "./BarChart"
 import MyBezierLineChart from "./BezierLineChart"
 import MyContributionGraph from "./ContributionGraph"
@@ -83,11 +82,10 @@ const Graph = ({graphData,xLabelKey,yLabelKey,props}) =>{
     const handleClick = (event) => {
         setAnchorEl(event?.currentTarget);
     };
-    const handleClose = (e,ele) => {
-        if(ele !== 'backdropClick'){
-            setGraphName(ele)
+    const handleClose = (value) => {
+        if(value !== 'backdropClick'){
+            setGraphName(value)
         }
-        setAnchorEl(null);
     };
 
     const filterData = (data) =>{
@@ -114,23 +112,7 @@ const Graph = ({graphData,xLabelKey,yLabelKey,props}) =>{
            
               <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                 <Text style={{flex:8,fontSize:20,fontWeight:'bold',textAlign:'center'}}>{graphName}</Text>
-                {Platform.OS === 'web' ?
-                <TouchableOpacity
-                    style={{flex:1}}
-                    onPress={handleClick}>
-                        <Ionicons size={30} name={'ellipsis-vertical-outline'} />
-                </TouchableOpacity>
-                :
-                <MenuView
-                    title={''}
-                    onPressAction={({ nativeEvent }) => {
-                    setGraphName(nativeEvent?.event)
-                    }}
-                    actions={menuList}
-                    shouldOpenOnLongPress={false}
-                >
-                    <TouchableOpacity><Ionicons name="ellipsis-vertical-outline" color='black' size={25} /></TouchableOpacity>
-                </MenuView>}
+                <MenuViewList handleClose={(value)=>handleClose(value)} menuList={menuList} />
             </View>
             {graphName && <ScrollView horizontal><GraphView props={props} data={{labels:labelArray,data:dataArray}} name={graphName} /></ScrollView>}
             
@@ -138,9 +120,10 @@ const Graph = ({graphData,xLabelKey,yLabelKey,props}) =>{
             {Platform.OS === 'web' && <Menu
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={()=>handleClose('backdropClick')}
+                title='Select Graph'
             >
-                {graphLabel?.map(ele=><MenuItem onClick={(e)=>handleClose(e,ele)}>{ele}</MenuItem>)}
+                {graphLabel?.map(ele=><MenuItem onClick={()=>handleClose(ele)}>{ele}</MenuItem>)}
             </Menu>}
             {/* only for web */}
         </View>
