@@ -210,8 +210,8 @@ console.log('<<<<subFormDataaaaaaaaaaaaa<<<<',subFormData)
                                 scrollEnabled={false}
                                 renderItem={({ item,index }) => {
                                     return(
-                                       <FormField style={{flex:index+1,width:isMobileView ? '100%' : '30%',padding:2,minHeight:70}} key={index} onChange={(value)=>handleChange(item?.name,value,i)} {...item} />
-                                     )
+                                        <FormField style={{flex:index+1,width:isMobileView ? '100%' : '30%',padding:2,minHeight:70}} key={index} onChange={(value)=>handleChange(item?.name,value,i)} {...item} />
+                                        )
                                 }}
                                 //Setting the number of column
                                 numColumns={isMobileView ? 1 : 3}

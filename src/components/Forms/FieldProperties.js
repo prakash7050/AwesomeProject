@@ -3,6 +3,8 @@ import { forwardRef, useEffect, useState } from "react";
 import { View } from "react-native";
 import FormField from "../Form/FormField";
 import Choices from "./Choices";
+import DisplayFields from "./DisplayFields";
+import Validation from "./Validation";
 
 
 const InputTypeField = forwardRef((props,ref)=>{
@@ -11,6 +13,10 @@ const InputTypeField = forwardRef((props,ref)=>{
             return <FormField {...props} />
         case 'choices' :
             return <Choices {...props} />
+        case 'validation' :
+            return <Validation {...props} />
+        case 'name' :
+            return <DisplayFields {...props} />
     }
 })
 
@@ -36,10 +42,16 @@ const fields = [
         name : 'choices',
     },
     {
-        id: 'text',
+        id: 'validation',
         type:'checkbox',
-        label:'Validation',
-        name : 'required',
+        label:'Mandatory',
+        name : 'validation',
+    },
+    {
+        id: 'name',
+        type:'singleText',
+        label:'Name',
+        name : 'name',
     },
 ]
 
