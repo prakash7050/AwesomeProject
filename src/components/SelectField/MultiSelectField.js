@@ -111,7 +111,6 @@ const MultiSelectField = ({
       };
 
   const onSelectedItemChange = selectedItem => {
-    console.log(selectedItem)
     onSelectedItemsChange?.(selectedItem)
     setSelectedItems(selectedItem)
   };

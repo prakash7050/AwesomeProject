@@ -178,7 +178,6 @@ const SubForm = ({fomData=[]}) =>{
             let list = [...subFormData]
             list[i][`${name}`] = value
             setSubFormData([...list])
-            console.log(`<<<<<subFormValue<<<<`,name,':',value,i,typeof(value))
         }
         // let allData = [...subFormData]
     }
@@ -194,7 +193,6 @@ const SubForm = ({fomData=[]}) =>{
         list.splice(i,1)
         setSubFormData([...list])
     }
-console.log('<<<<subFormDataaaaaaaaaaaaa<<<<',subFormData)
     return(
         <View style={{paddingTop:10,width:'100%'}}>
             <Text style={{textAlign:'center',fontSize:25,fontWeight:'bold',margin:10}}>SubForm</Text>

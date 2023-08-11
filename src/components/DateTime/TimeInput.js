@@ -34,7 +34,6 @@ export default function TimeInput({
             minutes = `0${minutes}`
         }
         setTime({ hours, minutes })
-        console.log({ hours, minutes },'<<<<<',(`${hours}`).length);
       },
       [setVisible]
     );

@@ -17,7 +17,6 @@ const NameInput = ({firstNameLabel,middleNameLabel,lastNameLabel,prefixLabel,suf
         setNameList(nameValue);
         onChange?.(nameValue);
     }
-    console.log(isMobileView);
 
     return(
         <View style={{flexDirection:!isMobileView ? 'row' : 'column',width:'100%'}}>

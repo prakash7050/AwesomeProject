@@ -37,13 +37,11 @@ export default function DateInput({
         setTime({ hours, minutes })
         const dateTime = moment(`${inputDate} ${hours}:${minutes}`,'DD-MM-YYYY HH:mm').format('DD/MM/YYYY hh:mm:ss a')
         setInputDate(dateTime)
-        console.log({ hours, minutes },'<<<<<',(`${hours}`).length);
       },
       [setVisible]
     );
 
   const handleChange = (d) =>{
-    console.log(`<<<ddd<<<<`,moment(d).format('DD/MM/YYYY'))
     const date = moment(d).format('DD-MM-YYYY')
     // const dateTime = moment(d).format('DD-MM-YYYY hh:mm:ss a')
     setInputDate(date)

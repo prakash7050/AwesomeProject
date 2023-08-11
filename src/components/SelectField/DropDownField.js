@@ -38,11 +38,10 @@ const DropDownField = ({
   };
 
 const handleChange = (itemValue) =>{
-  console.log(itemValue)
     setSelectedValue(itemValue)
     onValueChange?.(itemValue)
 }
-console.log(`<<<<itemData<<<`,itemData)
+
   return (
     <View style={{width:'100%',height:60,minWidth:200,flexDirection:'column',...style}}>
          {/* {label &&<View><Text style={{fontWeight:'normal',fontSize:18,paddingLeft:10,color:error ? 'red' : 'black'}}>{required ? `${label}*` : label}</Text></View>} */}

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { isMobile } from "react-device-detect";
-import { Button, Platform, StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import AddressInput from "../components/Address/AddressInput";
 import LoadingButton from "../components/Button/LoadingButton";
 import RadioButtonInput from "../components/Button/RadioButton";
@@ -9,7 +8,6 @@ import DateInput from "../components/DateTime/DateInput";
 import TimeInput from "../components/DateTime/TimeInput";
 import Form from "../components/Form/Form";
 import SubForm from "../components/Form/SubForm";
-import MainForm from "../components/Forms/MainForm";
 import Graph from "../components/Graph/Graph";
 import ImagePicker from "../components/ImageInput/ImagePicker";
 import Name from "../components/Name/NameInput";
@@ -26,6 +24,7 @@ import NumberTextInput from "../components/TextInputField/NumberTextInput";
 import SearchTextInput from "../components/TextInputField/SearchTextInput";
 import SingleLineText from "../components/TextInputField/SingleLineTextInput";
 import UrlTextInput from "../components/TextInputField/UrlTextInput";
+import MyForm from "./Forms/MyForm";
 
 const tableData = [
     { label_one: 'example1', label_two: 'Snow', label_three: 'Jon', label_four: 35 ,uri:'https://png.pngtree.com/png-vector/20191129/ourlarge/pngtree-image-upload-icon-photo-upload-icon-png-image_2047547.jpg'},
@@ -51,7 +50,6 @@ const Home = () =>{
     const [imageUrl, setImageUrl] = useState('')
 
     const handleChange = (name,value) =>{
-        console.log(name,value)
         if(name === 'name'){
             setName(value)
         }else if(name === 'schoolName'){
@@ -108,7 +106,6 @@ const Home = () =>{
             setIsLoading(false)
         }, 2000);
     }
-    console.log(Platform.OS,isMobile);
 
     return (
         <View style={{margin:'10%',paddingTop:30}} >
@@ -188,7 +185,7 @@ const Home = () =>{
             <View style={{paddingTop:10}}>
             <Button title="Create From" onPress={()=>setComponentName('createForm')}/>
             {componentName === 'createForm' && <View >
-                <MainForm />
+                <MyForm />
             </View>}
             </View>
             {/* <Map /> */}

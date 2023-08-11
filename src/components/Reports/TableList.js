@@ -35,7 +35,6 @@ const TableList = ({data=[],onPressMenu,onSelectData,onFilterData}) =>{
       useEffect(()=>{
         if(!isEmpty(data)){
           const dataList = data?.map((ele,i)=>{return {id:i+1,...ele}})
-          console.log(`<<<,dataList<<<`,dataList)
           setTableData(dataList)
           const keys = Object.keys(data[0])
           let headerData = []

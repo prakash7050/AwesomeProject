@@ -60,32 +60,46 @@ const FieldProperties = (props) =>{
 
     useEffect(()=>{
         if(!isEmpty(fields)){
-            setFieldArray([...fields])
+            let list = [...fields]
+            if(!isEmpty(props?.itemDetails) && !isEmpty(props?.itemDetails?.value)){
+                const selectItem = props?.itemDetails
+                const allKeyField = Object.keys(selectItem?.value)
+                for(let key of allKeyField){
+                    const index = list?.findIndex(ele=> ele?.name === key)
+                    list[index].value = selectItem?.value[key]
+                }
+            }else{
+                list = list?.map(ele=> {ele.value = ele?.defaultValue; return ele;})
+            }
+            setFieldArray([...list])
         }
-    },[])
+    },[props?.itemDetails])
 
-    const handleChange = (name,value,i) =>{
-        console.log(name,':',value,typeof(value))
+    const handleChange = (name,value,i,id) =>{
         let list = [...fieldArray]
-        if(typeof(value) === 'string'){
+        if(id === 'text' && typeof(value) === 'string'){
             list[i]['value'] = value
-            console.log(`<<<<ddd<<<<<`)
             if(name === 'field_name'){
                 list[i+1]['value'] = value.replace(" ","_")
-                console.log(`<<<hhhh<<`,list[i+1])
+                props?.onChange?.({field_link_name:value.replace(" ","_"),field_name:value})
+            }else{
+                props?.onChange?.({[`${name}`] : value})
             }
-        }else{
+            setFieldArray([...list])
+        }else if(id !== 'text'){
             list[i]['value'] = value
+            setFieldArray([...list])
+            props?.onChange?.({[`${name}`] : value})
         }
-        setFieldArray([...list])
-        console.log(name,':',value,list)
+        
     }
+    
     return(
         <View style={{margin:10,backgroundColor:"#f4f6fa"}}>
             {!isEmpty(fieldArray) && fieldArray?.map((field,i)=>{
                 return(
                     <View style={{margin:10}}>
-                        <InputTypeField {...field} value={field?.value} onChange={(value)=>handleChange(field?.name,value,i)} />
+                        <InputTypeField {...field} value={field?.value} onChange={(value)=>handleChange(field?.name,value,i,field?.id)} />
                     </View>
                 )
             })}

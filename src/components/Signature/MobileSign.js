@@ -17,7 +17,6 @@ export default function MobileSign() {
   };
 
   const handleDownload  = async(encode) =>{
-    console.log(`<<<<base64<<<`,encode);
     if(encode){
       Alert.alert(
         'Signature',
@@ -45,7 +44,6 @@ export default function MobileSign() {
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         const fileUri = `${FileSystem.documentDirectory}signature.png`;
-        console.log(`,,,,filePath`,fileUri);
         const fileInfo = await FileSystem.writeAsStringAsync(fileUri,encode.replace("data:image/png;base64,", ""),{ encoding: FileSystem.EncodingType.Base64 });
         await pickLocationAndMoveFile(fileUri);
         const fileCheck = await FileSystem.getInfoAsync(fileUri)

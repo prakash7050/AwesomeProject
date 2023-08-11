@@ -9,7 +9,6 @@ import { isMobileView } from "../../Constant";
 
 
 const Field = forwardRef((props,refs) =>{
-console.log(`<<<<<<itess Filed<<<`,props)
     return(
         <View style={styles.container}>
             <TouchableOpacity onPress={()=>props?.onPress?.()} style={{flexDirection:"row",width:isMobileView ?'70%' : '90%',height:50,alignItems:'center',justifyContent:'flex-start'}}>

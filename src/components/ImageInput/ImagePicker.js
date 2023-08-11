@@ -22,7 +22,6 @@ export default function ImagePicker({fileType,label,setFile,removeFile,isShowIma
       const result = await PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
       );
-      console.log(`<<<<result<<<`,result)
 
       if (!result) {
         const granted = await PermissionsAndroid.request(
@@ -81,7 +80,6 @@ export default function ImagePicker({fileType,label,setFile,removeFile,isShowIma
         });
 
         let result = await res.json();
-        console.log('result', result);
         if (result.status == 1) {
           Alert.alert('Info', result.msg);
         }
@@ -106,7 +104,6 @@ export default function ImagePicker({fileType,label,setFile,removeFile,isShowIma
           type: fileType && `${fileType}/*`,
           multiple: true
         });
-        console.log(`<<<<res<<<<`,result)
 
         if (result.type === 'success') {
           // Printing the log realted to the file

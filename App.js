@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { forwardRef, useRef, useState } from "react";
-import { ScrollView, StyleSheet, View, useColorScheme } from "react-native";
+import { StyleSheet, View, useColorScheme } from "react-native";
 import 'react-native-gesture-handler';
-import { Provider } from "react-native-paper";
 import Toast from 'react-native-toast-message';
-import CreateForm from "./src/pages/CreateForm";
+import { Provider } from "react-redux";
+import MyHome from "./src/pages/MyHome";
+import { store } from "./src/redux/store";
 // import Button from './components/Button';
 // import ImageViewer from './components/ImageViewer';
 
@@ -22,25 +23,19 @@ export default function App() {
   const toastRef = useRef(null);
   
   return (
-    <>
+    <Provider store={store}>
     <View style={{...styles.container,backgroundColor:isDarkMode ? 'white' : 'white'}}>
       
       {/* <View style={styles.imageContainer}>
         <ImageViewer placeholderImageSource={PlaceholderImage} />
       </View> */}
       
-      <Provider>
-      
-      <ScrollView onScroll={()=>setIsHidden(true)}>
-      
-        <CreateForm />
-      </ScrollView>
-      </Provider>
+      <MyHome />
       
       <StatusBar backgroundColor={isDarkMode ? 'white' : 'black'} style={!isDarkMode ? 'light' : 'dark'} hideTransitionAnimation="fade" networkActivityIndicatorVisible={true} />
       <InfoMessage ref={toastRef} />
     </View>
-    </>
+    </Provider>
   );
 }
 

@@ -19,7 +19,6 @@ export default function DateInput({
   const [inputDate, setInputDate] = React.useState(undefined)
 
   const handleChange = (d) =>{
-    console.log(`<<<ddd<<<<`)
     setInputDate(d)
     onChange(d)
   }

@@ -3,12 +3,13 @@ import { isEmpty } from "lodash";
 import { React, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { isMobileView } from "../../Constant";
+import LoadingButton from "../Button/LoadingButton";
 import Field from "./Field";
 import FieldProperties from './FieldProperties';
 import InputTypeForm from "./InputTypeForm";
 
 
-const MainForm = () =>{
+const MainForm = (props) =>{
     const [input, setInput] = useState([{name:'Basic', show: true},{name:'Advance', show: true},{name:'Special', show: true}])
     const [inputName, setInputName] = useState('fields')
     const [selectItems, setSelectItems] = useState([])
@@ -19,10 +20,9 @@ const MainForm = () =>{
     },[])
 
     const handleSelect = (item) =>{
-        console.log(item,'<<<<<<<<')
-        let list = [...selectItems,item]
+        let list = [...selectItems,{...item,field_id:selectItems.length + 1 }]
         setSelectItems([...list])
-        setItem(item)
+        setItem({...item,field_id:selectItems.length + 1 })
     }
 
     const remove = (i) =>{
@@ -32,11 +32,18 @@ const MainForm = () =>{
     }
 
     const handleClick = (item,i) =>{
-        setItem(item)
+        setItem({...item,field_id:selectItems.length + 1 })
+    }
+
+    const handleChange = (value) =>{
+        let list = [...selectItems]
+        const index = list?.findIndex(ele=> ele?.field_id === item?.field_id)
+        list[index] ={...list[index],value: {...list[index]['value'],...value}}
+        setSelectItems([...list])
     }
     
     return(
-        <View style={{marginTop:50}}>
+        <View>
             {isMobileView && <View style={{flexDirection:'row',width:"100%",backgroundColor:"#f4f6fa",alignItems:'center',justifyContent:'space-between'}}>
                 <TouchableOpacity style={{width:'30%',flexDirection:'row',alignItems:'center',justifyContent:'flex-start',backgroundColor:inputName === 'fields' ? "#73e6bd" : '#94855d'}} onPress={()=>setInputName('fields')}>
                     <Ionicons name={'add-circle'} size={25} />
@@ -54,29 +61,30 @@ const MainForm = () =>{
             <View style={{flexDirection:'row',width:isMobileView ? '58%' : "100%"}}>
             {(inputName === 'fields' || !isMobileView) &&
                 <View style={{width:isMobileView ? '100%' : '20%',flexDirection:"column"}}>
-                    <Text style={{fontWeight:"bold",fontSize:18,marginTop:5,textAlign:'center'}}>Fields</Text>
-                    <View style={{width:'400%',borderBottomWidth:2,marginTop:5,borderColor:'black'}}></View>
+                    {/* <Text style={{fontWeight:"bold",fontSize:18,marginTop:5,textAlign:'center'}}>Fields</Text>
+                    <View style={{width:'400%',borderBottomWidth:2,marginTop:5,borderColor:'black'}}></View> */}
                     <InputTypeForm onChange={(item)=>handleSelect(item)} />
                 </View>
             }
             <View style={{width:isMobileView ? inputName === 'page' ? '150%' : '60%' :'50%',alignItems:"center"}}>
-                    <Text style={{fontWeight:"bold",fontSize:18,marginTop:5,textAlign:'center'}}>Form Fields</Text>
-                    <View style={{width:'400%',borderBottomWidth:2,marginTop:5,borderColor:'black'}}></View>
+                    {/* <Text style={{fontWeight:"bold",fontSize:18,marginTop:5,textAlign:'center'}}>Form Fields</Text>
+                    <View style={{width:'400%',borderBottomWidth:2,marginTop:5,borderColor:'black'}}></View> */}
                     {!isEmpty(selectItems) && <View style={{margin:5,paddingLeft:10,paddingTop:20,flexDirection:'column',width:'100%'}}>
+                        <LoadingButton label={'Save'} onPress={()=>props?.onPress(selectItems)} />
                         {selectItems?.map((item,i)=>{
                             return(
                                 <Field key={i} item={item} remove={()=>remove(i)} onPress={()=>handleClick(item,i)} />
-                                // <Text>Hello</Text>
                             )
                         })}
+                        
                     </View>}
                     
             </View>
-            {(inputName === 'fieldProperties' || !isMobileView) &&
-               <View style={{width:isMobileView ? '115%' :'30%'}}>
-                <Text style={{fontWeight:"bold",fontSize:18,marginTop:5,textAlign:'center'}}>Fields Properties</Text>
-                    <View style={{width:'400%',borderBottomWidth:2,marginTop:5,borderColor:'black'}}></View>
-                    <FieldProperties />
+            {!isEmpty(item) && (inputName === 'fieldProperties' || !isMobileView) &&
+                <View style={{width:isMobileView ? '115%' :'30%'}}>
+                    {/* <Text style={{fontWeight:"bold",fontSize:18,marginTop:5,textAlign:'center'}}>Fields Properties</Text>
+                    <View style={{width:'400%',borderBottomWidth:2,marginTop:5,borderColor:'black'}}></View> */}
+                    <FieldProperties itemDetails={item} onChange={(value)=>handleChange(value)} />
                 </View>
             }
             </View>

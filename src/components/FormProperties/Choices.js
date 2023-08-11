@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Text, TextInput, TouchableOpacity, View } from "react-native"
 import { isMobileView } from "../../Constant"
 import CheckBoxInput from "../CheckBox/CheckBoxInput"
@@ -16,9 +16,9 @@ const Choices = (props) =>{
     const [isOrder, setIsOrder] = useState(false)
     const [viewName,setViewName] = useState('')
 
-    useEffect(()=>{
-        onSave()
-    },[])
+    // useEffect(()=>{
+    //     onSave()
+    // },[])
 
     const check = (value,i) =>{
         let list = [...items]
@@ -36,7 +36,6 @@ const Choices = (props) =>{
     }
 
     const inputChange = (value,i) =>{
-        console.log(`<<<<value<<<`,value,i)
         let list = [...items]
         setViewName({name:value,index:i})
         if(value === 'add'){
@@ -48,9 +47,7 @@ const Choices = (props) =>{
             console.log('')
             }
         }else if(value === 'pencil'){
-            console.log('value :', value)
             list = [...list].map((ele,index)=>{
-                console.log(`<<<<<`,i,value,index === i)
                 if(index === i){
                     return {...ele,isEdit:true}
                 }else{
@@ -58,7 +55,6 @@ const Choices = (props) =>{
                 }
             })
         }
-        console.log(`<<<<<<`,list)
         setItems([...list])
         onSave()
     }
@@ -75,13 +71,11 @@ const Choices = (props) =>{
         if(!isOrder){
             let list = [...items]
             list.sort((a,b)=>(a?.name > b?.name ? 1 : -1))
-            console.log(`<<<list<<<`,list)
             setItems([...list])
         }
         onSave()
     }
     const addOther = (value) =>{
-        console.log('value',value)
         if(value){
             setItems([...items,{name:'Other',isCheck:true}])
         }else{

@@ -18,7 +18,6 @@ import UrlTextInput from "../TextInputField/UrlTextInput";
 const FormField = forwardRef((props,ref) =>{
 
     const handleChange = (value) =>{
-        console.log(`<<<<formfield<<<`,value)
         props?.onChange?.(value)
     }
     

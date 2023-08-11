@@ -161,32 +161,30 @@ const Form = ({fomData=[]}) =>{
 
 
     useEffect(()=>{
-        if(!isEmpty(data)){
-            const nameData = [...data]?.filter((ele,i)=> {if(ele?.type === 'name'){
+        if(!isEmpty(fomData)){
+            const nameData = [...fomData]?.filter((ele,i)=> {if(ele?.type === 'name'){
                 setName({id:i, value:{...ele}})
             }else if(ele?.type === 'address'){
                 setAddress({id:i, value:{...ele}})
             }
         })
         }
-    },[])
+    },[fomData])
 
     const handleChange = (name,value) =>{
         if(typeof(value) !== 'object'){
             let list = {...subFormData}
             list[`${name}`] = value
             setSubFormData({...list})
-            console.log(`<<<<<subFormValue<<<<`,name,':',value,typeof(value))
         }
         // let allData = [...subFormData]
     }
 
-console.log('<<<<subFormDataaaaaaaaaaaaa<<<<',subFormData)
     return(
         <View style={{flexDirection:'column',width:'100%'}}>
             <Text style={{textAlign:'center',fontSize:25,fontWeight:'bold',margin:10}}>Form</Text>
-            <FlatList
-                data={data}
+            {!isEmpty(fomData) && <FlatList
+                data={fomData}
                 style={{flex:1}}
                 nestedScrollEnabled={true}
                 scrollEnabled={false}
@@ -198,7 +196,7 @@ console.log('<<<<subFormDataaaaaaaaaaaaa<<<<',subFormData)
                 //Setting the number of column
                 numColumns={isMobileView ? 1 : 3}
                 keyExtractor={(item, index) => `key-${index}`}
-            />
+            />}
             
             {!isEmpty(name) &&
             <View>

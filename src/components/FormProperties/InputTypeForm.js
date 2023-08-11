@@ -18,7 +18,6 @@ const InputTypeForm = (props) =>{
     const [input, setInput] = useState([{name:'Basic', show: true},{name:'Advance', show: true},{name:'Special', show: true}])
 
     const show = (isShow,i) =>{
-        console.log(`<<<isShoow<<<`,isShow,i)
         const list = [...input]
         list[i]['show'] = !isShow
         setInput([...list])
